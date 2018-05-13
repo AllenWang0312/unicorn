@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+
+    <title>unicorn</title>
+    <link rel="shortcut icon" href="/images/logo.png" />
+    <link rel="stylesheet" href="/css/styles.css">
+
+    <script src="/scripts/jquery-1.7.2.min.js" ></script>
+    <script src="/scripts/uicontroal.js" ></script>
+</head>
+
+<body>
+<!--<h1>链接手机成功!</h1>-->
+<!--<div id="header">-->
+<!---->
+<!--</div>-->
+<!--<div height = 10px background-color:#333333> </div>-->
+<div id="body">
+    <div id="left_box">
+        <p style="height:50px;">wifi共享数据 <a align="center"> unicorn<sup>TM</sup></a></p>
+        <!--<input id="auto_play" title="自动播放" type="checkbox">-->
+        <div id="left_menu">
+            <div>
+                <p>视频<a id="expend_video" class="expend_button">收起</a></p>
+                <ul class="filelist" id="videolist"></ul>
+            </div>
+            <div>
+                <p>音乐 <a id="expend_music" class="expend_button">收起</a></p>
+                <ul class="filelist" id="musiclist"></ul>
+            </div>
+            <div>
+                <p>图片<a id="expend_image" class="expend_button">收起</a></p>
+                <ul class="filelist" id="imagelist"></ul>
+            </div>
+        </div>
+        <!--<div style="height:200px;">-->
+            <!--<img id="upload" style="height:100px;width:auto;" src="/images/bg_drag.png"></img>-->
+           <!--<p>文件上传 <a color="blue">选择文件</a></p>-->
+        <!--</div>-->
+    </div>
+
+    <div id="right_box" align="center">
+        <video id="videoplayer" controls="controls"
+               style="width:100%;height:100%;height=500px;display: none;"></video>
+        <audio id="musicplayer" controls="controls" style="width:100%;display: none;"></audio>
+        <img id="imageplayer" style="height:100%;display: none;"/>
+        <!--<form name="input" action="send" method="get">-->
+        <!--<input type="text" name="clipboard">-->
+        <!--<input type="submit" value="Submit">-->
+        <!--</form>-->
+    </div>
+
+</div>
+<!--<div id="footer" style="background-color:#FFA500;clear:both;text-align:center;">-->
+<!--版权 © runoob.com</div>-->
+</body>
+</html>

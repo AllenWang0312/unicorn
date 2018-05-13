@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:tools="http://schemas.android.com/tools"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/location"
+        app:showAsAction="always"
+        android:title="位置"
+        >
+
+    </item>
+    <item
+        android:id="@+id/links" app:showAsAction="always"
+        android:title="URL">
+
+    </item>
+    <!--<item-->
+        <!--android:id="@+id/links" app:showAsAction="always"-->
+        <!--android:title="联系人">-->
+<!---->
+    <!--</item>-->
+    <item
+        android:id="@+id/contracts" app:showAsAction="always"
+        android:title="联系人">
+
+    </item>
+</menu>

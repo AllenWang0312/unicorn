@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:showIn="navigation_view">
+
+    <!--<item-->
+        <!--android:id="@+id/nav_search"-->
+        <!--android:icon="@drawable/ic_search_grey_600_24dp"-->
+        <!--android:title="search"/>-->
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Gallery"/>
+        <item
+            android:id="@+id/nav_download"
+            android:icon="@drawable/ic_cloud_download_black_24dp"
+            android:title="Download"
+            >
+
+        </item>
+
+        <item
+            android:id="@+id/nav_camera"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="take phote"/>
+        <item
+            android:id="@+id/nav_imei"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="imei"/>
+        <item
+            android:id="@+id/nav_net_image"
+            android:visible="false"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="NetImage"/>
+
+
+        <!--<item-->
+            <!--android:id="@+id/nav_ble"-->
+            <!--android:icon="@drawable/ic_bluetooth_black_24dp"-->
+            <!--android:title="bluetooth"/>-->
+
+        <item
+            android:id="@+id/nav_send"
+            android:icon="@drawable/ic_menu_send"
+            android:title="wifi chat"/>
+
+        <item
+            android:id="@+id/nav_netdata"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="流量监控"/>
+        <!--<item-->
+            <!--android:id="@+id/nav_zhihu"-->
+            <!--android:icon="@drawable/ic_menu_slideshow"-->
+            <!--android:title="知乎"/>-->
+
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_manage"
+                android:icon="@drawable/ic_menu_manage"
+                android:title="Tools"/>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Share"/>
+            <item
+                android:id="@+id/nav_dashang"
+                android:icon="@drawable/ic_menu_send"
+                android:title="打赏"/>
+
+        </menu>
+    </item>
+
+</menu>

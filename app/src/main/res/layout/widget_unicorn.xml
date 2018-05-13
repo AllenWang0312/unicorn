@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/ll_viewer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+
+
+        <ImageView
+            android:id="@+id/imageview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+           />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+
+            android:background="@color/cover"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/pre"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_gravity="left|center_vertical"
+                android:src="@drawable/ic_keyboard_arrow_left_white_24dp"/>
+
+            <TextView
+                android:padding="0dp"
+                android:id="@+id/set"
+                android:layout_margin="4dp"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/set_wallpaper"
+                android:layout_weight="1"  android:gravity="center_horizontal"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_margin="4dp"
+                android:id="@+id/chose"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="选择文件夹"/>
+
+            <ImageView
+                android:id="@+id/next"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_gravity="right|center_vertical"
+                android:src="@drawable/ic_keyboard_arrow_right_white_24dp"/>
+            <!--<CheckBox-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="自动"/>-->
+
+            <!--<Spinner-->
+
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content">-->
+
+            <!--</Spinner>-->
+        </LinearLayout>
+    </FrameLayout>
+
+

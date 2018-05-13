@@ -1,0 +1,15 @@
+#header { padding:0; height:10%; }
+#body { padding:0; height:90%; }
+#left_box { width:20%;height:600px;float:left;display:inline;}
+#left_menu { overflow:scroll;overflow-x:hidden;height:350px;}
+
+#right_box { display:inline;float:right;width:80%;height:600px;background-color:#eeeeee;}
+#videoplayer { padding:0;width:80%;height:80%;}
+
+
+.expend_button { color:blue;margin-left:16px;}
+
+.tag {color:#ffffff;background-color:#454545;}
+.filelist {padding:0;background-color:#aaaaaa;}
+.file { display:inline-block;}
+.file:hover .click{ color:blue;}

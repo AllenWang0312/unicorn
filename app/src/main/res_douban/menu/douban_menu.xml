@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/search"
+          android:icon="@drawable/ic_search_white_24dp"
+          app:showAsAction="always"
+          android:title="搜索"
+        ></item>
+    <!--<item-->
+        <!--android:title="Top250"-->
+        <!--android:id="@+id/top250"-->
+        <!--app:showAsAction="always"-->
+        <!--&gt;</item>-->
+
+    <!--<item-->
+        <!--android:title="美榜"-->
+        <!--android:id="@+id/us_box"-->
+        <!--app:showAsAction="always"-->
+        <!--&gt;</item>-->
+</menu>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+
+    <color name="gray">#666</color>
+    <color name="translate">#00000000</color>
+    <color name="black">#000</color>
+    <color name="white">#fff</color>
+    <color name="cover">#8888</color>
+    <color name="blue">#3388aa</color>
+
+    <color name="text_accent_color">#334499</color>
+
+</resources>

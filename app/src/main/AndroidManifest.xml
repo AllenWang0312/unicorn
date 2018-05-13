@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          package="edu.tjrac.swant.unicorn">
+
+    <!-- <uses-permission android:name="d" -->
+    <uses-permission android:name="android.permission.SET_WALLPAPER"/>
+    //在程序中使用蓝牙功能
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    //启动设备发现或操纵蓝牙设置
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission
+        android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions"/>
+    <!-- <uses-permission -->
+    <!-- android:name="android.permission.INSTALL_PACKAGES" -->
+    <!-- tools:ignore="ProtectedPermissions"></uses-permission> -->
+    <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES"/>
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
+
+    <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
+
+    <application
+        android:name=".App"
+        android:allowBackup="true"
+        android:icon="@mipmap/ufo_ed"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <receiver android:name=".widget.UnicornWidgetProvider">
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_widget_provider_info"/>
+
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+                <action android:name="edu.tjrac.swant.unicorn.module.widget.CLICK"/>
+                <action android:name="edu.tjrac.swant.unicorn.module.widget.PRE"/>
+                <action android:name="edu.tjrac.swant.unicorn.module.widget.NEXT"/>
+                <action android:name="edu.tjrac.swant.unicorn.module.widget.SET"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".widget.MusicPlayerWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/music_player_widget_info"/>
+        </receiver>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="edu.tjrac.swant.unicorn.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+        </provider>
+
+        
+        <!-- bluetooth -->
+        <activity
+            android:name=".view.MainActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.Translucent">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".view.ProxyActivity"
+            android:configChanges="locale|fontScale|orientation|keyboardHidden|screenSize"
+                  android:windowSoftInputMode="adjustResize|stateAlwaysHidden"
+            >
+
+        </activity>
+        <activity android:name="edu.tjrac.swant.common.view.SplashActivity">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN"/> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity
+            android:name="edu.tjrac.swant.douyin.module.main.DouYinActivity"
+            android:launchMode="singleTask">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN"/> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity
+            android:name="edu.tjrac.swant.bluetooth.view.BluetoothActivity"
+            android:label="@string/title_activity_bluetooth"
+            android:launchMode="singleTask">
+        </activity>
+
+        <service android:name="edu.tjrac.swant.wifi.FileWifiShareServer"/>
+        <service android:name="edu.tjrac.swant.bluetooth.AdvertiserService"/>
+        <service android:name="edu.tjrac.swant.media.MusicPlayService"/>
+        <!-- <service android:name=".module.widget.UnicornWidgetDataHolder"></service> -->
+        <!-- <service android:name=".module.widWidgetDataModelodel"/> -->
+
+        <activity android:name="edu.tjrac.swant.camera.view.Camera3Activity">
+        </activity>
+        <activity android:name="edu.tjrac.swant.camera.view.Camera2Activity">
+        </activity>
+        <activity android:name="edu.tjrac.swant.camera.view.Camera1Activity">
+        </activity>
+        <activity android:name="edu.tjrac.swant.camera.view.CameraActivity">
+        </activity>
+        <activity android:name="edu.tjrac.swant.filesystem.view.GalleryAlbumActivity">
+        </activity>
+        <activity android:name="edu.tjrac.swant.filesystem.view.ImageEditorActivity">
+        </activity>
+        <activity android:name="edu.tjrac.swant.wifi.WifiChartActivity">
+        </activity>
+        <activity
+            android:name="edu.tjrac.swant.download.DownloadActivity"
+            android:label="@string/title_activity_download">
+        </activity>
+
+        <service android:name="edu.tjrac.swant.download.DownLoadService">
+        </service>
+
+        <activity android:name="edu.tjrac.swant.bluetooth.view.DevicesMoreInfoActivity">
+        </activity>
+        <activity
+            android:name="edu.tjrac.swant.filesystem.view.SelectDirActivity"
+            android:theme="@style/Base.Theme.AppCompat.Dialog">
+        </activity>
+        <activity
+            android:name="edu.tjrac.swant.media.view.MusicPlayerActivity"
+            android:launchMode="singleInstance">
+        </activity>
+        <activity android:name="edu.tjrac.swant.trafficmonitor.NetDataWatcherActivity">
+        </activity>
+        <activity
+            android:name="edu.tjrac.swant.netimage.view.NetImageActivity"
+            android:label="@string/title_activity_net_image">
+        </activity>
+        <activity android:name="edu.tjrac.swant.netimage.view.MzituTagAblumsActivity">
+        </activity>
+        <activity android:name="edu.tjrac.swant.netimage.view.MzituAblumDetialActivity">
+        </activity>
+        <activity
+            android:name=".view.ZhihuActivity"
+            android:launchMode="singleTask">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN"/> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity android:name="edu.tjrac.swant.zhihu.activity.StroyDetialActivity">
+        </activity>
+        <activity android:name="edu.tjrac.swant.zhihu.activity.DailyReportActivity">
+        </activity>
+        <activity android:name="edu.tjrac.swant.zhihu.activity.ThemeDetialActivity">
+        </activity>
+        <activity android:name="edu.tjrac.swant.douban.view.DoubanMovieDetialActivity">
+        </activity>
+        <activity android:name="edu.tjrac.swant.douban.view.LeaderboardActivity">
+        </activity>
+        <activity android:name="edu.tjrac.swant.douban.view.CharacterDetialActivity">
+        </activity>
+        <activity android:name=".view.SearchActivity">
+        </activity>
+        <activity
+            android:name="edu.tjrac.swant.douyin.view.DouyinSearchActivity"
+            android:label="@string/title_activity_douyin_search">
+        </activity>
+        <activity android:name="edu.tjrac.swant.douban.view.CoordinglayoutTestActivity">
+        </activity>
+        <activity android:name=".view.LottieViewerActivity">
+        </activity>
+        <activity android:name="edu.tjrac.swant.todo.view.ToDoMainActivity">
+        </activity>
+        <activity android:name="edu.tjrac.swant.opengl.view.OpenGLActivity">
+        </activity>
+        <activity android:name="edu.tjrac.swant.imei.view.OneKeyChangeIMEIActivity">
+        </activity>
+        <activity
+            android:name="edu.tjrac.swant.todo.view.PackageResultActivity"
+            android:label="@string/title_activity_package_result"
+            android:theme="@style/AppTheme">
+        </activity>
+    </application>
+
+</manifest>

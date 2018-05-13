@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="edu.tjrac.swant.opengl.view.OpenGLActivity">
+
+
+    <android.opengl.GLSurfaceView
+        android:id="@+id/gl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/white">
+
+        <TableRow>
+
+            <TextView
+                android:minWidth="80dp"
+                android:text="阴影色"/>
+
+            <TextView
+                android:id="@+id/ambient"
+                android:minWidth="80dp"/>
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:minWidth="80dp"
+                android:text="漫反射"/>
+
+            <TextView
+                android:id="@+id/diffuse"
+                android:minWidth="80dp"/>
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:minWidth="80dp"
+                android:text="高亮色"/>
+
+            <TextView
+                android:id="@+id/specular"
+                android:minWidth="80dp"/>
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:minWidth="80dp"
+                android:text="光源颜色"/>
+
+            <TextView
+                android:id="@+id/light"
+                android:minWidth="80dp"/>
+
+        </TableRow>
+
+    </TableLayout>
+
+</FrameLayout>

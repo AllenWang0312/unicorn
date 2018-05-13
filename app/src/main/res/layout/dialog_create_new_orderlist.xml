@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="6dp"/>
+
+    <EditText
+        android:id="@+id/et_title"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginLeft="48dp"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycle_icon"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="48dp"
+        >
+
+    </android.support.v7.widget.RecyclerView>
+</FrameLayout>

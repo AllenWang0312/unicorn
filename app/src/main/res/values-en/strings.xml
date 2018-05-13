@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">unicorn</string>
+
+    <string name="title_activity_gallery">GalleryActivity</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="title_activity_download">DownloadActivity</string>
+    <!--bluetooth-->
+    <string name="filter_by_name_or_address">Filter by name or address</string>
+    <string name="filter_by_raw_advertising_da">Filter by raw advertising da</string>
+
+    <string name="advertising_type">Advertising type:</string>
+    <string name="flags">Flags:</string>
+    <string name="complete_list_of_16_bit_service">Complete list of 16-bit Service UUIDs:</string>
+    <string name="shortened_local_name">Shortened Local Name:</string>
+
+    <string-array name="scan_info_key_list">
+        <item>@string/advertising_type</item>
+        <item>@string/flags</item>
+        <item>@string/complete_list_of_16_bit_service</item>
+        <item>@string/shortened_local_name</item>
+    </string-array>
+
+    <string name="adv_interval">Adv.interval</string>
+    <string name="title_activity_bluetooth">BluetoothActivity</string>
+
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="title_activity_net_image">NetImageActivity</string>
+
+
+
+    //
+
+    <string name="action_settings">settings</string>
+    <string name="action_image">image</string>
+    <string name="action_video">video</string>
+    <string name="action_music">music</string>
+    <string name="detial">detials</string>
+    <string name="big_image">big image</string>
+    <string name="little_image">little image</string>
+    <string name="action_filesystem">file system</string>
+    <string name="create_new_dir">create new dir</string>
+    <string name="create_new_file">create new file</string>
+    <string name="no_data">no data</string>
+    <string name="rename_files">rename filse</string>
+
+
+    <string name="regist">register</string>
+    <string name="send">send</string>
+    <string name="login">login</string>
+
+
+    <string name="set_wallpaper">set wallpaper</string>
+</resources>

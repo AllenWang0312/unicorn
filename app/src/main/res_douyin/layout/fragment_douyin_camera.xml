@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <SurfaceView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <FrameLayout
+        android:id="@+id/iv_switch_camera"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="8dp"
+            android:src="@mipmap/switch_camera"
+            />
+
+        <CheckBox
+            android:id="@+id/cb_switch_light"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/light_switcher"
+            android:button="@null"/>
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="right"
+            android:layout_margin="8dp"
+            android:src="@drawable/ic_keyboard_arrow_right_white_24dp"/>
+
+        <ImageView
+            android:id="@+id/iv_take_phote"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/shape_douyin_camera_white_ball"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:text="故事"/>
+
+
+        <ImageView
+            android:id="@+id/iv_filters"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="24dp"
+            android:layout_marginRight="24dp"
+            android:background="@drawable/shape_douyin_camera_white_ball"/>
+
+
+    </FrameLayout>
+
+
+</FrameLayout>

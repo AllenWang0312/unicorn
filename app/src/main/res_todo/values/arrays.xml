@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="favourite_type">
+        <item >地点</item>
+        <item >联系人</item>
+        <item >链接</item>
+
+        <item >email</item>
+        <item >快递</item>
+
+    </string-array>
+
+    <string-array name="package_type">
+        <item >京东</item>
+
+        <item >韵达</item>
+        <item >申通</item>
+
+    </string-array>
+</resources>
