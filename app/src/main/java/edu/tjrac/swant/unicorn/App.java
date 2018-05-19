@@ -19,6 +19,8 @@ public class App extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        //fix someproblems;
+
         //Install CustomActivityOnCrash
         CustomActivityOnCrash.install(this);
         CustomActivityOnCrash.setLaunchErrorActivityWhenInBackground(true);
