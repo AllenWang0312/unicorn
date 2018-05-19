@@ -8,5 +8,7 @@
     <string name="header_scrolling_behavior">header_scrolling_behavior</string>
     <string name="header_float_behavior">header_float_behavior</string>
     <string name="create_new_list">新建清单</string>
+
+    <string name="select_tag">选择tag</string>
     <string name="title_activity_package_result">PackageResultActivity</string>
 </resources>

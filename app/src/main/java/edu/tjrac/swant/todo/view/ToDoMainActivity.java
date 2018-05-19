@@ -131,10 +131,15 @@ public class ToDoMainActivity extends SharedStartActivity implements View.OnClic
         todoAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                if (view.getId() == R.id.options_one) {
-
-
-                } else if (view.getId() == R.id.options_three) {
+//                if (view.getId() == R.id.options_one) {
+//
+//
+//                }
+//                else
+                    if (view.getId() == R.id.options_two) {
+                    addTag(formatList.get(position));
+                }
+                else if (view.getId() == R.id.options_three) {
                     target = formatList.get(position);
                     addTodo();
                 } else if (view.getId() == R.id.cb_done) {
@@ -203,6 +208,9 @@ public class ToDoMainActivity extends SharedStartActivity implements View.OnClic
         dialog.show();
     }
 
+    public void addTag(Todo todo) {
+
+    }
 
     public ArrayList<Todo> formatList(ArrayList<Todo> list) {
         ArrayList<Todo> formatList = new ArrayList<>();

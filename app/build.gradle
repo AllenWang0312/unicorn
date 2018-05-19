@@ -26,7 +26,10 @@ android {
         main.res.srcDirs += 'src/main/res_zhihu'
         main.res.srcDirs += 'src/main/res_todo'
 //        main.res.srcDirs += 'src/main/res-newyear'
+
+        main.jniLibs.srcDirs = ['libs']
     }
+
 //    E:\work\personal.jks
     dataBinding {
         enabled = true
@@ -36,7 +39,7 @@ android {
     }
     defaultConfig {
         applicationId "edu.tjrac.swant.unicorn"
-        minSdkVersion 21
+        minSdkVersion 19
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -44,6 +47,10 @@ android {
 //   ndk{
 //       moduleName "JNIDemo"
 //   }
+        ndk {
+            //选择要添加的对应cpu类型的.so库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a', 'x86', 'x86_64', 'mips', 'mips64'
+        }
     }
     buildTypes {
         release {
@@ -58,6 +65,7 @@ android {
 }
 
 dependencies {
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -67,6 +75,7 @@ dependencies {
 
     testCompile 'junit:junit:4.12'
     compile 'com.airbnb.android:lottie:2.5.4'
+    compile 'com.android.support:percent:25.2.0'
 
     //崩溃检测
     compile 'cat.ereza:customactivityoncrash:1.5.0'

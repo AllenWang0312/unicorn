@@ -213,7 +213,11 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
                         adapter.path_histroy.push(file);
                         adapter.cd_dir(file);
                     } else {
-                        if (OpenGLActivity.res_type.contains(StringUtils.getEndString(file.getName()))) {
+                        if(".h264".contains(StringUtils.getEndString(file.getName()))){
+//                            startActivity(new Intent(getActivity(), H264Activity.class)
+//                            .putExtra("path",file.getAbsoluteFile()));
+
+                        }else if (OpenGLActivity.res_type.contains(StringUtils.getEndString(file.getName()))) {
                             OpenGLActivity.start(getActivity(), file.getAbsolutePath());
                         } else if (GalleryAlbumActivity.res_type.contains(StringUtils.getEndString(file.getName()))) {
                             GalleryAlbumActivity.start(getActivity(),

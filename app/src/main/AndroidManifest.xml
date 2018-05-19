@@ -71,7 +71,6 @@
                 android:resource="@xml/file_paths"/>
         </provider>
 
-        
         <!-- bluetooth -->
         <activity
             android:name=".view.MainActivity"
@@ -83,11 +82,10 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".view.ProxyActivity"
+        <activity
+            android:name=".view.ProxyActivity"
             android:configChanges="locale|fontScale|orientation|keyboardHidden|screenSize"
-                  android:windowSoftInputMode="adjustResize|stateAlwaysHidden"
-            >
-
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden">
         </activity>
         <activity android:name="edu.tjrac.swant.common.view.SplashActivity">
 
@@ -207,6 +205,29 @@
             android:label="@string/title_activity_package_result"
             android:theme="@style/AppTheme">
         </activity>
+        <activity android:name="edu.tjrac.swant.todo.view.TagsActivity">
+        </activity>
+        <activity android:name="edu.tjrac.swant.todo.view.WebWorkSpaceActivity">
+        </activity>
+        <activity
+            android:name="edu.tjrac.swant.todo.view.PicInPicMarkDownActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:launchMode="singleTask"
+            android:resizeableActivity="true"
+            android:supportsPictureInPicture="true">
+            <layout
+                android:defaultHeight="400dp"
+                android:defaultWidth="300dp"
+                android:gravity="bottom|end"/>
+        </activity>
+        <activity
+            android:name="edu.tjrac.swant.todo.view.GroupWebViewerActivity"
+            android:launchMode="singleTask"
+            android:resizeableActivity="true">
+        </activity>
+        <activity android:name="edu.tjrac.swant.h264.test.H264Activity">
+        </activity>
+
     </application>
 
 </manifest>

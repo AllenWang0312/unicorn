@@ -52,6 +52,7 @@ import edu.tjrac.swant.download.DownloadActivity;
 import edu.tjrac.swant.filesystem.view.GalleryFragment;
 import edu.tjrac.swant.filesystem.view.ImageEditorActivity;
 import edu.tjrac.swant.netimage.view.NetImageActivity;
+import edu.tjrac.swant.todo.view.WebWorkSpaceActivity;
 import edu.tjrac.swant.trafficmonitor.NetDataWatcherActivity;
 import edu.tjrac.swant.unicorn.AlipayZeroSdk;
 import edu.tjrac.swant.unicorn.App;
@@ -286,6 +287,8 @@ public class MainActivity extends SharedStartActivity
         getSupportFragmentManager().beginTransaction().replace(R.id.fl_main, mGalleryFragment).commit();
 
 //        MusicPlayerActivity.testStart(mContext);
+
+        WebWorkSpaceActivity.debugStart(MainActivity.this);
     }
 
     @Override
