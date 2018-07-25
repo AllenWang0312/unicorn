@@ -1,8 +1,12 @@
 package edu.tjrac.swant.unicorn.view;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
@@ -48,11 +52,16 @@ import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import edu.tjrac.swant.arcore.augmentedimage.AugmentedImageActivity;
+import edu.tjrac.swant.arcore.cloudanchor.CloudAnchorActivity;
+import edu.tjrac.swant.arcore.solar.SolarActivity;
 import edu.tjrac.swant.download.DownloadActivity;
 import edu.tjrac.swant.filesystem.view.GalleryFragment;
 import edu.tjrac.swant.filesystem.view.ImageEditorActivity;
+import edu.tjrac.swant.fingerprint.FingerPrintBaseActivity;
 import edu.tjrac.swant.netimage.view.NetImageActivity;
-import edu.tjrac.swant.todo.view.WebWorkSpaceActivity;
+import edu.tjrac.swant.todo.view.ClipboardInfoDialog;
+import edu.tjrac.swant.todo.view.ToDoMainActivity;
 import edu.tjrac.swant.trafficmonitor.NetDataWatcherActivity;
 import edu.tjrac.swant.unicorn.AlipayZeroSdk;
 import edu.tjrac.swant.unicorn.App;
@@ -95,6 +104,55 @@ public class MainActivity extends SharedStartActivity
     @Override
     protected void onResume() {
         super.onResume();
+
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        String text = "";
+        try {
+            if (clipboard != null && clipboard.hasText()) {
+
+                CharSequence tmpText = clipboard.getText();
+                if (tmpText != null && tmpText.length() > 0) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                    builder.setTitle("clipboard input:" + tmpText.toString());
+                    text = tmpText.toString().trim();
+
+                    if (StringUtils.isMobileNO(text)) {
+                        builder.setItems(new String[]{"call", "新建联系人", "添加到联系人信息"}, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (which == 0) {
+                                    startActivity(IntentUtil.getCallPhoneIntent(tmpText.toString()));
+                                } else if (which == 1) {
+
+                                } else if (which == 2) {
+
+                                }
+                            }
+                        });
+                    } else if (StringUtils.isEmail(text)) {
+                        builder.setItems(new String[]{"新建联系人", "添加到联系人信息"}, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                    } else {
+                        new ClipboardInfoDialog(clipboard.getText().toString()).show(getFragmentManager(), "clipinfo");
+                    }
+
+
+// 创建一个剪贴数据集，包含一个普通文本数据条目（需要复制的数据）
+                    ClipData clipData = ClipData.newPlainText(null, "");
+
+// 把数据集设置（复制）到剪贴板
+                    clipboard.setPrimaryClip(clipData);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+//            text = "";
+        }
+
         if (App.loged == null) {
 //            RoomDatabase database = Room.databaseBuilder(getApplicationContext(),
 //                    RoomDatabase.class, "database_name")
@@ -287,8 +345,8 @@ public class MainActivity extends SharedStartActivity
         getSupportFragmentManager().beginTransaction().replace(R.id.fl_main, mGalleryFragment).commit();
 
 //        MusicPlayerActivity.testStart(mContext);
+//        WebWorkSpaceActivity.debugStart(MainActivity.this);
 
-        WebWorkSpaceActivity.debugStart(MainActivity.this);
     }
 
     @Override
@@ -381,7 +439,17 @@ public class MainActivity extends SharedStartActivity
 
             }
             // Handle the camera action
+        } else if (id == R.id.nav_fingerprint) {
+            startActivity(new Intent(mContext, FingerPrintBaseActivity.class));
+
+        } else if (id == R.id.nav_augmented_image) {
+            startActivity(new Intent(mContext, AugmentedImageActivity.class));
+        } else if (id == R.id.nav_solar) {
+            startActivity(new Intent(mContext, SolarActivity.class));
+        } else if (id == R.id.nav_cloudanchor) {
+            startActivity(new Intent(mContext, CloudAnchorActivity.class));
         } else if (id == R.id.nav_net_image) {
+
             startActivity(new Intent(MainActivity.this, NetImageActivity.class));
         } else if (id == R.id.nav_gallery) {
             if (mGalleryFragment == null) {
@@ -396,6 +464,8 @@ public class MainActivity extends SharedStartActivity
 //        }
         else if (id == R.id.nav_manage) {
 
+        } else if (id == R.id.nav_todo) {
+            ToDoMainActivity.start(mContext);
         }
 //        else if (id == R.id.nav_zhihu) {
 //            startActivity(new Intent(MainActivity.this, ZhihuActivity.class));

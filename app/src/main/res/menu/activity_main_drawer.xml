@@ -8,7 +8,31 @@
         <!--android:icon="@drawable/ic_search_grey_600_24dp"-->
         <!--android:title="search"/>-->
 
-    <group android:checkableBehavior="single">
+    <item android:title="ARCore">
+        <menu>
+            <item
+                android:id="@+id/nav_solar"
+                android:icon="@drawable/ic_menu_camera"
+                android:title="Solar System"/>
+            <item
+                android:id="@+id/nav_augmented_image"
+                android:icon="@drawable/ic_menu_camera"
+                android:title="AugmentedImage"/>
+            <item
+                android:id="@+id/nav_cloudanchor"
+                android:icon="@drawable/ic_menu_camera"
+                android:title="CloudAnchor"/>
+
+
+        </menu>
+    </item>
+    <item
+        android:id="@+id/nav_todo"
+        android:icon="@drawable/ic_menu_gallery"
+        android:title="Todo"/>
+
+    <item android:title="filesystem">
+
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_gallery"
@@ -18,17 +42,7 @@
             android:icon="@drawable/ic_cloud_download_black_24dp"
             android:title="Download"
             >
-
         </item>
-
-        <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="take phote"/>
-        <item
-            android:id="@+id/nav_imei"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="imei"/>
         <item
             android:id="@+id/nav_net_image"
             android:visible="false"
@@ -36,26 +50,50 @@
             android:title="NetImage"/>
 
 
+    </item>
+
+    <item android:title="hardware">
+
+        <item
+            android:id="@+id/nav_fingerprint"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="fingerpring"/>
+
+        <item
+            android:id="@+id/nav_camera"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="take phote"/>
+
         <!--<item-->
-            <!--android:id="@+id/nav_ble"-->
-            <!--android:icon="@drawable/ic_bluetooth_black_24dp"-->
-            <!--android:title="bluetooth"/>-->
+            <!--android:id="@+id/nav_imei"-->
+            <!--android:icon="@drawable/ic_menu_camera"-->
+            <!--android:title="imei"/>-->
+
 
         <item
             android:id="@+id/nav_send"
             android:icon="@drawable/ic_menu_send"
-            android:title="wifi chat"/>
+            android:title="wifi chat"
+            />
 
         <item
             android:id="@+id/nav_netdata"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="流量监控"/>
+
+
+        <!--<item-->
+            <!--android:id="@+id/nav_ble"-->
+            <!--android:icon="@drawable/ic_bluetooth_black_24dp"-->
+            <!--android:title="bluetooth"/>-->
+
+
         <!--<item-->
             <!--android:id="@+id/nav_zhihu"-->
             <!--android:icon="@drawable/ic_menu_slideshow"-->
             <!--android:title="知乎"/>-->
 
-    </group>
+    </item>
 
     <item android:title="Communicate">
         <menu>

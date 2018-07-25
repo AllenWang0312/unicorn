@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-package com.google.ar.core.examples.java.cloudanchor;
+package edu.tjrac.swant.arcore.cloudanchor;
 
 import android.support.annotation.Nullable;
+
 import com.google.ar.core.Anchor;
 import com.google.ar.core.Anchor.CloudAnchorState;
 import com.google.ar.core.Session;
 import com.google.common.base.Preconditions;
+
 import java.util.Collection;
 import java.util.HashMap;
 

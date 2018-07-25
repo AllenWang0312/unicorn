@@ -116,6 +116,8 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
     RecyclerView mPopRecycler;
 
     ClipBoardRecycAdapter clipAdapter;
+//    @BindView(R.id.adView)
+//     AdView mAdView;
 
     private GalleryContentAdapter.HasItemSelectedCallback mItemSelectedCallback = new GalleryContentAdapter.HasItemSelectedCallback() {
         @Override
@@ -161,6 +163,9 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
 
 
         mUnbinder = ButterKnife.bind(this, view);
+
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        mAdView.loadAd(adRequest);
         return view;
     }
 
@@ -213,11 +218,11 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
                         adapter.path_histroy.push(file);
                         adapter.cd_dir(file);
                     } else {
-                        if(".h264".contains(StringUtils.getEndString(file.getName()))){
+                        if (".h264".contains(StringUtils.getEndString(file.getName()))) {
 //                            startActivity(new Intent(getActivity(), H264Activity.class)
 //                            .putExtra("path",file.getAbsoluteFile()));
 
-                        }else if (OpenGLActivity.res_type.contains(StringUtils.getEndString(file.getName()))) {
+                        } else if (OpenGLActivity.res_type.contains(StringUtils.getEndString(file.getName()))) {
                             OpenGLActivity.start(getActivity(), file.getAbsolutePath());
                         } else if (GalleryAlbumActivity.res_type.contains(StringUtils.getEndString(file.getName()))) {
                             GalleryAlbumActivity.start(getActivity(),
@@ -229,7 +234,12 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
                             MusicPlayerActivity.start(getActivity(),
                                     file.getAbsolutePath()
                             );
-                        } else {
+                        }
+//                        else if(MediaPlayerActivity.){
+//
+//                        }
+
+                        else {
                             File file1 = adapter.getItem(position);
                             Log.i("open file", file1.getAbsolutePath());
                             OpenFileHelper.openFile(getActivity(), file1);
@@ -564,18 +574,18 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
 
                 RadioGroup left = view.findViewById(R.id.rb_left),
                         right = view.findViewById(R.id.rb_right);
-                inflateItem(Config.SP.sortType,left, sortType);
-                inflateItem(Config.SP.sortOrdition,right, oradition);
+                inflateItem(Config.SP.sortType, left, sortType);
+                inflateItem(Config.SP.sortOrdition, right, oradition);
 
 
                 builder.setView(view);
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        SharedPreferences sp=getActivity().getSharedPreferences(Config.SP.GallerySetting,Context.MODE_PRIVATE);
+                        SharedPreferences sp = getActivity().getSharedPreferences(Config.SP.GallerySetting, Context.MODE_PRIVATE);
 
-                        adapter.sort(sp.getInt(Config.SP.sortType,0),
-                                sp.getInt(Config.SP.sortType,0));
+                        adapter.sort(sp.getInt(Config.SP.sortType, 0),
+                                sp.getInt(Config.SP.sortType, 0));
 
                     }
                 });
@@ -601,11 +611,11 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
                     File f = new File(file);
                     if (f.exists()) {
                         f.delete();
-                        adapter.remove(file);
+                        int position = adapter.remove(file);
+                        adapter.notifyItemRemoved(position);
                         Log.i("file is delete", f.getAbsolutePath());
                     }
                 }
-                adapter.notifyDataSetChanged();
                 break;
             case R.id.rename_files:
                 break;
@@ -625,20 +635,20 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
         return super.onOptionsItemSelected(item);
     }
 
-    private void inflateItem(String key,RadioGroup left, String[] sortType) {
-        for (int i=0;i<sortType.length;i++) {
+    private void inflateItem(String key, RadioGroup left, String[] sortType) {
+        for (int i = 0; i < sortType.length; i++) {
             RadioButton button = new RadioButton(getActivity());
             button.setLayoutParams(new RadioGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            button.setPadding(20,10,20,10);
+            button.setPadding(20, 10, 20, 10);
             button.setText(sortType[i]);
             int finalI = i;
             button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                     if(isChecked){
-                         getActivity().getSharedPreferences(Config.SP.GallerySetting, Context.MODE_PRIVATE)
-                         .edit().putInt(key, finalI).commit();
-                     }
+                    if (isChecked) {
+                        getActivity().getSharedPreferences(Config.SP.GallerySetting, Context.MODE_PRIVATE)
+                                .edit().putInt(key, finalI).commit();
+                    }
                 }
             });
             left.addView(button);

@@ -1,4 +1,4 @@
-package fingerprint.com.fingerprintrecognition.core;
+package edu.tjrac.swant.fingerprint.core;
 
 import android.annotation.TargetApi;
 import android.hardware.fingerprint.FingerprintManager;
@@ -21,7 +21,8 @@ import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 
-import fingerprint.com.fingerprintrecognition.log.FPLog;
+import edu.tjrac.swant.fingerprint.log.FPLog;
+
 
 /**
  * Created by popfisher on 2016/11/7.

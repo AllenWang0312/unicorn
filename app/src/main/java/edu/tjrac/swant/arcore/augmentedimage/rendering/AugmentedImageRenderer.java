@@ -12,14 +12,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.google.ar.core.examples.java.augmentedimage.rendering;
+package edu.tjrac.swant.arcore.augmentedimage.rendering;
 
 import android.content.Context;
+
 import com.google.ar.core.Anchor;
 import com.google.ar.core.AugmentedImage;
 import com.google.ar.core.Pose;
-import com.google.ar.core.examples.java.augmentedimage.rendering.ObjectRenderer.BlendMode;
+
 import java.io.IOException;
+
+//import com.google.ar.core.examples.java.augmentedimage.rendering.ObjectRenderer.BlendMode;
 
 /** Renders an augmented image. */
 public class AugmentedImageRenderer {
@@ -44,22 +47,22 @@ public class AugmentedImageRenderer {
     imageFrameUpperLeft.createOnGlThread(
         context, "models/frame_upper_left.obj", "models/frame_base.png");
     imageFrameUpperLeft.setMaterialProperties(0.0f, 3.5f, 1.0f, 6.0f);
-    imageFrameUpperLeft.setBlendMode(BlendMode.SourceAlpha);
+    imageFrameUpperLeft.setBlendMode(ObjectRenderer.BlendMode.SourceAlpha);
 
     imageFrameUpperRight.createOnGlThread(
         context, "models/frame_upper_right.obj", "models/frame_base.png");
     imageFrameUpperRight.setMaterialProperties(0.0f, 3.5f, 1.0f, 6.0f);
-    imageFrameUpperRight.setBlendMode(BlendMode.SourceAlpha);
+    imageFrameUpperRight.setBlendMode(ObjectRenderer.BlendMode.SourceAlpha);
 
     imageFrameLowerLeft.createOnGlThread(
         context, "models/frame_lower_left.obj", "models/frame_base.png");
     imageFrameLowerLeft.setMaterialProperties(0.0f, 3.5f, 1.0f, 6.0f);
-    imageFrameLowerLeft.setBlendMode(BlendMode.SourceAlpha);
+    imageFrameLowerLeft.setBlendMode(ObjectRenderer.BlendMode.SourceAlpha);
 
     imageFrameLowerRight.createOnGlThread(
         context, "models/frame_lower_right.obj", "models/frame_base.png");
     imageFrameLowerRight.setMaterialProperties(0.0f, 3.5f, 1.0f, 6.0f);
-    imageFrameLowerRight.setBlendMode(BlendMode.SourceAlpha);
+    imageFrameLowerRight.setBlendMode(ObjectRenderer.BlendMode.SourceAlpha);
   }
 
   public void draw(

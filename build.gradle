@@ -10,7 +10,22 @@ buildscript {
         classpath 'com.android.tools.build:gradle:3.0.0'
         classpath "io.realm:realm-gradle-plugin:3.0.0"
         classpath 'me.tatarka:gradle-retrolambda:3.5.0'
+
+        classpath 'com.google.ar.sceneform:plugin:1.0.1'
+
+        classpath 'com.google.gms:google-services:4.0.0'
+
     }
+    ext{
+        compileSdkVersion = 27
+        buildToolsVersion = '27.0.3'
+
+//        minSdkVersion = 10
+//        targetSdkVersion = 22
+//        versionCode = 34
+//        versionName = "v2.6.1"
+    }
+
 }
 
 allprojects {
@@ -21,6 +36,7 @@ allprojects {
         }
         google()
         maven { url 'https://maven.google.com' }
+//   maven { url "https://raw.githubusercontent.com/OoswantoO/MavenTest/master"}
     }
 }
 

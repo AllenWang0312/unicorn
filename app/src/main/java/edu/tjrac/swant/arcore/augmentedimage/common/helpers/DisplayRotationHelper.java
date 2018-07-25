@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.google.ar.core.examples.java.common.helpers;
+package edu.tjrac.swant.arcore.augmentedimage.common.helpers;
 
 import android.app.Activity;
 import android.content.Context;
@@ -20,6 +20,7 @@ import android.hardware.display.DisplayManager;
 import android.hardware.display.DisplayManager.DisplayListener;
 import android.view.Display;
 import android.view.WindowManager;
+
 import com.google.ar.core.Session;
 
 /**

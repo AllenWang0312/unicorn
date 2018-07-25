@@ -56,8 +56,6 @@ public class DownLoadService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-
-
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -68,6 +66,21 @@ public class DownLoadService extends Service {
         if(info==null){
 
         }else {
+            binder.addThread(info);
+
+
+        }
+        return binder;
+    }
+
+
+    class DownLoadBinder extends Binder {
+
+        public DownLoadService getService() {
+            return DownLoadService.this;
+        }
+
+        public void addThread(DownloadFileInfo info){
             DownloadThread thread= new DownloadThread(info,threadcallback);
             if(infos==null){
                 infos=new HashMap<String,DownloadFileInfo>();
@@ -80,15 +93,7 @@ public class DownLoadService extends Service {
             }
             pool.execute(thread);
         }
-        return binder;
-    }
 
-
-    class DownLoadBinder extends Binder {
-
-        public DownLoadService getService() {
-            return DownLoadService.this;
-        }
     }
 
     DownloadFileInfo getDownLoadInfo(long id){

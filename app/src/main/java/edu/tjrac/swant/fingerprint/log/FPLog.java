@@ -1,8 +1,9 @@
-package fingerprint.com.fingerprintrecognition.log;
+package edu.tjrac.swant.fingerprint.log;
 
 import android.util.Log;
 
-import fingerprint.com.fingerprintrecognition.BuildConfig;
+import edu.tjrac.swant.unicorn.BuildConfig;
+
 
 /**
  * Created by 77423 on 2016/11/7.

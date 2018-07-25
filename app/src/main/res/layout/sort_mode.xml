@@ -3,6 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:orientation="horizontal"
+    android:paddingLeft="@dimen/dialog_padding_hro"
+    android:paddingRight="@dimen/dialog_padding_hro"
+    android:paddingTop="@dimen/dialog_padding_vert"
+    android:paddingBottom="@dimen/dialog_padding_vert"
     android:layout_height="match_parent">
 
     <android.support.v4.widget.NestedScrollView

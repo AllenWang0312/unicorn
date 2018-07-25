@@ -1,9 +1,9 @@
 package edu.tjrac.swant.todo.view;
 
 import android.app.AlertDialog;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,25 +18,18 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.google.gson.Gson;
+import com.yckj.baselib.common.base.BaseActivity;
 import com.yckj.baselib.util.StringUtils;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import edu.tjrac.swant.qqmusic.PackageSearchResult;
-import edu.tjrac.swant.todo.JDApi;
 import edu.tjrac.swant.todo.adapter.TodoListAdapter;
 import edu.tjrac.swant.todo.bean.Todo;
-import edu.tjrac.swant.unicorn.Net;
 import edu.tjrac.swant.unicorn.R;
-import edu.tjrac.swant.unicorn.SharedStartActivity;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
-public class ToDoMainActivity extends SharedStartActivity implements View.OnClickListener {
+public class ToDoMainActivity extends BaseActivity implements View.OnClickListener {
 
 
     //[] location () time {} link
@@ -47,7 +40,9 @@ public class ToDoMainActivity extends SharedStartActivity implements View.OnClic
 //    @BindView(R.id.nav_view) NavigationView mNavView;
 //    @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
 //    @BindView(R.id.fl_create) FrameLayout mFlCreate;
+
     @BindView(R.id.fab_add) FloatingActionButton fab;
+
 
     Todo target;
 
@@ -59,51 +54,6 @@ public class ToDoMainActivity extends SharedStartActivity implements View.OnClic
     @Override
     protected void onResume() {
         super.onResume();
-
-        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-        String text = "";
-        try {
-            if (clipboard != null && clipboard.hasText()) {
-                CharSequence tmpText = clipboard.getText();
-//                clipboard.setText(tmpText);
-                if (tmpText != null && tmpText.length() > 0) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-
-                    text = tmpText.toString().trim();
-//                    T.show(mContext,text);
-                    if (StringUtils.isMobileNO(text)) {
-                        builder.setTitle("添加联系人");
-                    } else if (StringUtils.isEmail(text)) {
-                        builder.setTitle("添加联系人（email）");
-                    } else {
-                        Net.getInstance().getJDApi().searchPackage(text, JDApi.key)
-                                .subscribeOn(Schedulers.io())
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe(new Subscriber<PackageSearchResult>() {
-                                    @Override
-                                    public void onCompleted() {
-
-                                    }
-
-                                    @Override
-                                    public void onError(Throwable e) {
-
-                                    }
-
-                                    @Override
-                                    public void onNext(PackageSearchResult packageSearchResult) {
-                                        PackageResultActivity.start(mContext, new Gson().toJson(packageSearchResult));
-                                    }
-                                });
-
-                    }
-
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-//            text = "";
-        }
     }
 
     @Override
@@ -136,10 +86,9 @@ public class ToDoMainActivity extends SharedStartActivity implements View.OnClic
 //
 //                }
 //                else
-                    if (view.getId() == R.id.options_two) {
+                if (view.getId() == R.id.options_two) {
                     addTag(formatList.get(position));
-                }
-                else if (view.getId() == R.id.options_three) {
+                } else if (view.getId() == R.id.options_three) {
                     target = formatList.get(position);
                     addTodo();
                 } else if (view.getId() == R.id.cb_done) {
@@ -229,5 +178,9 @@ public class ToDoMainActivity extends SharedStartActivity implements View.OnClic
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
+    }
+
+    public static void start(Context context) {
+        context.startActivity(new Intent(context, ToDoMainActivity.class));
     }
 }

@@ -5,10 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.webkit.WebView;
+
+import com.yckj.baselib.common.base.BaseActivity;
+import com.yckj.baselib.util.T;
 
 import java.util.ArrayList;
 
@@ -19,16 +21,17 @@ import edu.tjrac.swant.unicorn.R;
 import edu.tjrac.swant.zhihu.adapter.CommentsRecycAdapter;
 import edu.tjrac.swant.zhihu.zhihu.Comments;
 import edu.tjrac.swant.zhihu.zhihu.StoriesBean;
-import edu.tjrac.swant.zhihu.zhihu.StoryExtra;
 import edu.tjrac.swant.zhihu.zhihu.StroyDetialBean;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class StroyDetialActivity extends AppCompatActivity {
+public class StroyDetialActivity extends BaseActivity {
 
     @BindView(R.id.toolbar) Toolbar mToolbar;
     @BindView(R.id.webview) WebView mWebview;
+
+
 //    @BindView(R.id.iv_title) ImageView mImageView;
 //    @BindView(R.id.tv_like) TextView like;
 //    @BindView(R.id.tv_comment) TextView comment;
@@ -61,6 +64,19 @@ public class StroyDetialActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         setTitle(getIntent().getStringExtra("title"));
+
+        mWebview.getSettings().setJavaScriptEnabled(true);
+        mWebview.getSettings().setBuiltInZoomControls(true);
+        mWebview.getSettings().setDisplayZoomControls(false);
+        mWebview.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY); //取消滚动条白边效果
+//                        mWebview.setWebChromeClient(webChromeClient);
+//                        mWebview.setWebViewClient(webViewClient);
+        mWebview.getSettings().setDefaultTextEncodingName("UTF-8");
+        mWebview.getSettings().setBlockNetworkImage(false);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mWebview.getSettings().setMixedContentMode(mWebview.getSettings().MIXED_CONTENT_ALWAYS_ALLOW);  //注意安卓5.0以上的权限
+        }
+
 //        if (!StringUtils.isEmpty(title_image)) {
 //            Glide.with(StroyDetialActivity.this).load(title_image).into(mImageView);
 //        }
@@ -80,48 +96,14 @@ public class StroyDetialActivity extends AppCompatActivity {
                     @Override
                     public void onError(Throwable e) {
 
+                        T.show(mContext,e.getMessage());
                     }
 
                     @Override
                     public void onNext(StroyDetialBean stroyDetialBean) {
                         setTitle(stroyDetialBean.getTitle());
-
-                        mWebview.getSettings().setJavaScriptEnabled(true);
-                        mWebview.getSettings().setBuiltInZoomControls(true);
-                        mWebview.getSettings().setDisplayZoomControls(false);
-                        mWebview.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY); //取消滚动条白边效果
-//                        mWebview.setWebChromeClient(webChromeClient);
-//                        mWebview.setWebViewClient(webViewClient);
-                        mWebview.getSettings().setDefaultTextEncodingName("UTF-8");
-                        mWebview.getSettings().setBlockNetworkImage(false);
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            mWebview.getSettings().setMixedContentMode(mWebview.getSettings().MIXED_CONTENT_ALWAYS_ALLOW);  //注意安卓5.0以上的权限
-                        }
 //                        mWebview.loadDataWithBaseURL(stroyDetialBean.getShare_url(), stroyDetialBean.getBody(), "text/html", "UTF-8", null);
                         mWebview.loadData(stroyDetialBean.getBody(), "text/html", "utf-8");
-                    }
-                });
-
-        Net.getInstance().getZhihuService().requestStoryExtra(id)
-                .unsubscribeOn(Schedulers.io())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<StoryExtra>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(StoryExtra storyExtra) {
-//                        like.setText(storyExtra.getPopularity() + "");
-//                        comment.setText(storyExtra.getComments() + "");
-//                        mTvCommentTitle.setText(storyExtra.getComments()+"条评论");
                     }
                 });
 //        ivClose.setOnClickListener(new View.OnClickListener() {

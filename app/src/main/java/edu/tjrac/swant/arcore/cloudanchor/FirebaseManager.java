@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package com.google.ar.core.examples.java.cloudanchor;
+package edu.tjrac.swant.arcore.cloudanchor;
 
 import android.content.Context;
 import android.util.Log;
+
 import com.google.common.base.Preconditions;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;

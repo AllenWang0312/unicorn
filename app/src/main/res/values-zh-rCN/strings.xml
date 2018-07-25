@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">小宇宙</string>
+    <string name="app_name_debug">小宇宙debug</string>
+    <string name="app_name_preview">小宇宙preview</string>
+
 
     <string name="title_activity_gallery">媒体浏览器</string>
     <string name="title_activity_main">主页面</string>
@@ -31,7 +34,6 @@
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
     <string name="title_activity_net_image">NetImageActivity</string>
-
 
 
     <string name="action_settings">设置</string>

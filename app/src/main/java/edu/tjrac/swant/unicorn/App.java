@@ -6,7 +6,7 @@ import com.yckj.baselib.common.base.BaseApplication;
 
 import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
 import edu.tjrac.swant.unicorn.bean.User;
-import edu.tjrac.swant.unicorn.view.ZhihuActivity;
+import edu.tjrac.swant.unicorn.view.MainActivity;
 
 /**
  * Created by wpc on 2018/1/13 0013.
@@ -22,16 +22,18 @@ public class App extends BaseApplication {
         //fix someproblems;
 
         //Install CustomActivityOnCrash
-        CustomActivityOnCrash.install(this);
-        CustomActivityOnCrash.setLaunchErrorActivityWhenInBackground(true);
-        CustomActivityOnCrash.setShowErrorDetails(true);
-        CustomActivityOnCrash.setDefaultErrorActivityDrawable(R.mipmap.ic_launcher);
-       CustomActivityOnCrash.setEventListener(new MyEventListener());
+        if(BuildConfig.DEBUG){
 
-        CustomActivityOnCrash.setEnableAppRestart(true);//true/false 重启/关闭
-        CustomActivityOnCrash.setRestartActivityClass(ZhihuActivity.class);
+        }else {
+            CustomActivityOnCrash.install(this);
+            CustomActivityOnCrash.setLaunchErrorActivityWhenInBackground(false);
+            CustomActivityOnCrash.setShowErrorDetails(true);
+            CustomActivityOnCrash.setDefaultErrorActivityDrawable(R.mipmap.ufo_ed);
+            CustomActivityOnCrash.setEventListener(new MyEventListener());
 
-
+            CustomActivityOnCrash.setEnableAppRestart(true);//true/false 重启/关闭
+            CustomActivityOnCrash.setRestartActivityClass(MainActivity.class);
+        }
         applicationContext=this;
         instance=this;
 //        Realm.init(this);

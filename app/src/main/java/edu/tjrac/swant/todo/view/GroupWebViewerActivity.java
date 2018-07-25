@@ -29,7 +29,7 @@ BaseFragment current;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_group_web_viewer);
+//        setContentView(R.layout.activity_group_web_viewer);
         ButterKnife.bind(this);
         infos = getIntent().getParcelableArrayListExtra("infos");
 

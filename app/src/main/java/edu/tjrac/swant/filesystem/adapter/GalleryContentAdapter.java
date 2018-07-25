@@ -79,8 +79,14 @@ public class GalleryContentAdapter extends BaseQuickAdapter<File, BaseViewHolder
         this.setDatas(rootName, dirfile.listFiles());
     }
 
-    public void remove(String path) {
-        paths.remove(path);
+    public int remove(String path) {
+        for (int i = 0; i <paths.size() ; i++) {
+            if(path.equals(paths.get(i))){
+                paths.remove(path);
+                return i;
+            }
+        }
+        return -1;
     }
 
     public void setDatas(@Nullable String rootName, @Nullable File[] data) {
@@ -257,6 +263,9 @@ public class GalleryContentAdapter extends BaseQuickAdapter<File, BaseViewHolder
     public LinkedList<Object> path_histroy = new LinkedList<>();
 
     public boolean back() {
+        showCheckBox=false;
+        checkedItemIndex.clear();
+
         if (path_histroy != null && path_histroy.size() > 0) {
             path_histroy.pop();
             setDatas(null, path_histroy.getFirst());
@@ -331,7 +340,12 @@ public class GalleryContentAdapter extends BaseQuickAdapter<File, BaseViewHolder
 
                     return -1;
                 }else {
-                    return -1;
+                    if(sortOrdition==0){
+                        return  o1.lastModified()>o2.lastModified()? -1:1;
+                    }else {
+                        return  o1.lastModified()>o2.lastModified()? 1:-1;
+                    }
+
                 }
 
             }

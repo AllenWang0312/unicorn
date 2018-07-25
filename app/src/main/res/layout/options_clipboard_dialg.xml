@@ -2,6 +2,37 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:paddingTop="8dp"
+              android:paddingBottom="8dp"
+              android:paddingLeft="16dp"
+              android:paddingRight="16dp"
+              android:layout_height="wrap_content">
+    <TextView
+        android:layout_marginTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/clipboard_input_info"/>
+    <EditText
+        android:layout_marginTop="4dp"
+        android:id="@+id/et_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_marginTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/itis"/>
 
+    <com.google.android.flexbox.FlexboxLayout
+        android:layout_marginTop="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            style="@style/item_style_flex_box"
+            android:id="@+id/tv_package"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:text="快递包裹"
+            />
+    </com.google.android.flexbox.FlexboxLayout>
 </LinearLayout>

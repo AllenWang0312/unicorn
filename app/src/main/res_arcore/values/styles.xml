@@ -14,5 +14,12 @@
    limitations under the License.
 -->
 <resources>
-  <style name="AppTheme" parent="Theme.AppCompat.Light"/>
+  <!--<style name="AppTheme" parent="Theme.AppCompat.Light"/>-->
+  <style name="AppBaseTheme" parent="android:Theme.Light">
+    <!--
+        Theme customizations available in newer API levels can go in
+        res/values-vXX/styles.xml, while customizations related to
+        backward-compatibility can go here.
+    -->
+  </style>
 </resources>

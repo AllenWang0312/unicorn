@@ -1,4 +1,4 @@
-package edu.tjrac.swant.arcore;
+package edu.tjrac.swant.arcore.solar;
 
 /**
  * Created by wpc on 2018/5/31.

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.ar.core.examples.java.cloudanchor;
+package edu.tjrac.swant.arcore.cloudanchor;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -24,7 +24,10 @@ import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
 import android.view.View;
 import android.widget.EditText;
+
 import com.google.common.base.Preconditions;
+
+import edu.tjrac.swant.unicorn.R;
 
 /** A DialogFragment for the Resolve Dialog Box. */
 public class ResolveDialogFragment extends DialogFragment {

@@ -11,4 +11,14 @@
 
     <string name="select_tag">选择tag</string>
     <string name="title_activity_package_result">PackageResultActivity</string>
+    <string name="title_activity_cloud_anchor">CloudAnchorActivity</string>
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="clipboard_input_info">检测到您的剪切板中的内容如下:</string>
+    <string name="itis">它是:</string>
+
+    <string name="compose_shortcut_disabled_a">快速入口不可用</string>
+
+    <string name="compose_shortcut_long_a">抖音</string>
+
+    <string name="compose_shortcut_short_a">抖音</string>
 </resources>

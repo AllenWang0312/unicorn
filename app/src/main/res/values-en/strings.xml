@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">unicorn</string>
+    <string name="app_name_debug">unicorn debug</string>
+    <string name="app_name_preview">unicorn preview</string>
+
+    <!--<string name="app_name_debug">unicorn debug</string>-->
+<!--<string name="app_name_preview">unicorn preview</string>-->
 
     <string name="title_activity_gallery">GalleryActivity</string>
     <string name="title_activity_main">MainActivity</string>

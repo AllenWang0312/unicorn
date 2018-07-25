@@ -1,4 +1,4 @@
-package fingerprint.com.fingerprintrecognition;
+package edu.tjrac.swant.fingerprint;
 
 import android.app.Activity;
 import android.app.KeyguardManager;
@@ -6,7 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 
-import fingerprint.com.fingerprintrecognition.log.FPLog;
+import edu.tjrac.swant.fingerprint.log.FPLog;
+
 
 /**
  * Created by popfisher on 2016/11/8.
@@ -35,7 +36,7 @@ public class KeyguardLockScreenManager {
         mKeyManager = getKeyguardManager(context);
     }
 
-    public static android.app.KeyguardManager getKeyguardManager(Context context) {
+    public static KeyguardManager getKeyguardManager(Context context) {
         KeyguardManager keyguardManager = null;
         try {
             keyguardManager = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);

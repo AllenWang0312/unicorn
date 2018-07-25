@@ -1,4 +1,4 @@
-package edu.tjrac.swant.arcore;
+package edu.tjrac.swant.arcore.solar;
 
 import android.net.Uri;
 import android.os.Build;
@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.content.FileProvider;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -30,63 +30,72 @@ import com.google.ar.sceneform.Node;
 import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.rendering.ViewRenderable;
+import com.yckj.baselib.common.base.BaseActivity;
+import com.yckj.baselib.util.FileUtils;
 
+import java.io.File;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 import edu.tjrac.swant.unicorn.R;
 
-public class SolarActivity extends AppCompatActivity {
+public class SolarActivity extends BaseActivity {
 
-    private  static final  int RC_PERMISSIONS=0x123;
+    private static final int RC_PERMISSIONS = 0x123;
     private boolean installRequested;
 
     private GestureDetector gestureDetector;
-    private Snackbar loadingMessageSnackbar=null;
+    private Snackbar loadingMessageSnackbar = null;
     private ArSceneView arSceneView;
 
-    private ModelRenderable sunRenderable,mercuryRenderable,
-    venusRenderable,earthRenderable,lunaRenderable,marsRenderable,
-    jupiterRenderable,saturnRenderable,uranusRenderable,neptuneRenderable;
+    private ModelRenderable sunRenderable, mercuryRenderable,
+            venusRenderable, earthRenderable, lunaRenderable, marsRenderable,
+            jupiterRenderable, saturnRenderable, uranusRenderable, neptuneRenderable;
     private ViewRenderable solarControlsRenderable;
 
-    private final SolarSettings solarSettings=new SolarSettings();
+    private final SolarSettings solarSettings = new SolarSettings();
 
     private boolean hasFinishedLoading = false;
-    private boolean hasPlacedSolarSystem =false;
-    private  static final  float AU_TO_METERS=0.5f;
+    private boolean hasPlacedSolarSystem = false;
+    private static final float AU_TO_METERS = 0.5f;
 
+
+    String fileCachePath = FileUtils.getAppDataDir() + "arcore/solar";
+
+    String sfbFileName[] = {"Sol.sfb", "Mercury.sfb", "Venus.sfb", "Earth.sfb", "Luna.sfb", "Mars.sfb",
+            "Jupiter.sfb", "Saturn.sfb", "Uranus.sfb", "Neptune.sfb"
+    };
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_solar);
-        arSceneView=findViewById(R.id.ar_scene_view);
+        arSceneView = findViewById(R.id.ar_scene_view);
 
         // Build all the planet models.
         CompletableFuture<ModelRenderable> sunStage =
-                ModelRenderable.builder().setSource(this, Uri.parse("Sol.sfb")).build();
+                ModelRenderable.builder().setSource(this, getUri(0)).build();
         CompletableFuture<ModelRenderable> mercuryStage =
-                ModelRenderable.builder().setSource(this, Uri.parse("Mercury.sfb")).build();
+                ModelRenderable.builder().setSource(this, getUri(1)).build();
         CompletableFuture<ModelRenderable> venusStage =
-                ModelRenderable.builder().setSource(this, Uri.parse("Venus.sfb")).build();
+                ModelRenderable.builder().setSource(this, getUri(2)).build();
         CompletableFuture<ModelRenderable> earthStage =
-                ModelRenderable.builder().setSource(this, Uri.parse("Earth.sfb")).build();
+                ModelRenderable.builder().setSource(this, getUri(3)).build();
         CompletableFuture<ModelRenderable> lunaStage =
-                ModelRenderable.builder().setSource(this, Uri.parse("Luna.sfb")).build();
+                ModelRenderable.builder().setSource(this, getUri(4)).build();
         CompletableFuture<ModelRenderable> marsStage =
-                ModelRenderable.builder().setSource(this, Uri.parse("Mars.sfb")).build();
+                ModelRenderable.builder().setSource(this, getUri(5)).build();
         CompletableFuture<ModelRenderable> jupiterStage =
-                ModelRenderable.builder().setSource(this, Uri.parse("Jupiter.sfb")).build();
+                ModelRenderable.builder().setSource(this, getUri(6)).build();
         CompletableFuture<ModelRenderable> saturnStage =
-                ModelRenderable.builder().setSource(this, Uri.parse("Saturn.sfb")).build();
+                ModelRenderable.builder().setSource(this, getUri(7)).build();
         CompletableFuture<ModelRenderable> uranusStage =
-                ModelRenderable.builder().setSource(this, Uri.parse("Uranus.sfb")).build();
+                ModelRenderable.builder().setSource(this, getUri(8)).build();
         CompletableFuture<ModelRenderable> neptuneStage =
-                ModelRenderable.builder().setSource(this, Uri.parse("Neptune.sfb")).build();
+                ModelRenderable.builder().setSource(this, getUri(9)).build();
 
-        CompletableFuture<ViewRenderable> solarControlsStage=
+        CompletableFuture<ViewRenderable> solarControlsStage =
                 ViewRenderable.builder().setView(this, R.layout.solar_controls).build();
 
         CompletableFuture.allOf(
@@ -101,7 +110,7 @@ public class SolarActivity extends AppCompatActivity {
                 uranusStage,
                 neptuneStage,
                 solarControlsStage
-        ).handle( (notUsed, throwable) -> {
+        ).handle((notUsed, throwable) -> {
             // When you build a Renderable, Sceneform loads its resources in the background while
             // returning a CompletableFuture. Call handle(), thenAccept(), or check isDone()
             // before calling get().
@@ -126,20 +135,21 @@ public class SolarActivity extends AppCompatActivity {
                 // Everything finished loading successfully.
                 hasFinishedLoading = true;
 
-               } catch (InterruptedException | ExecutionException ex) {
+            } catch (InterruptedException | ExecutionException ex) {
                 DemoUtils.displayError(this, "Unable to load renderable", ex);
             }
 
             return null;
         });
 
-        gestureDetector = new GestureDetector(this,new GestureDetector.SimpleOnGestureListener(){
+        gestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onSingleTapUp(MotionEvent e) {
 //                Log.i("on","singleTapUp");
                 onSingleTap(e);
                 return true;
             }
+
             @Override
             public boolean onDown(MotionEvent e) {
                 return true;
@@ -161,10 +171,10 @@ public class SolarActivity extends AppCompatActivity {
                         });
 
         arSceneView.getScene().setOnUpdateListener(frameTime -> {
-            if(loadingMessageSnackbar==null){
+            if (loadingMessageSnackbar == null) {
                 return;
             }
-            Frame frame=arSceneView.getArFrame();
+            Frame frame = arSceneView.getArFrame();
             if (frame == null) {
                 return;
             }
@@ -181,6 +191,22 @@ public class SolarActivity extends AppCompatActivity {
 
         // Lastly request CAMERA permission which is required by ARCore.
         DemoUtils.requestCameraPermission(this, RC_PERMISSIONS);
+    }
+
+    private Uri getUri(int i) {
+
+        File file = new File(fileCachePath, sfbFileName[i]);
+
+        if (file.exists()) {
+            if(Build.VERSION.SDK_INT>=24){
+                return FileProvider.getUriForFile(mContext, "edu.tjrac.swant.unicorn.provider", file);
+            }else {
+                return Uri.fromFile(file);
+            }
+        } else {
+            return null;
+        }
+
     }
 
     @Override
@@ -327,10 +353,12 @@ public class SolarActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onStartTrackingTouch(SeekBar seekBar) {}
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+                    }
 
                     @Override
-                    public void onStopTrackingTouch(SeekBar seekBar) {}
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+                    }
                 });
 
         SeekBar rotationSpeedBar = solarControlsView.findViewById(R.id.rotationSpeedBar);
@@ -344,10 +372,12 @@ public class SolarActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onStartTrackingTouch(SeekBar seekBar) {}
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+                    }
 
                     @Override
-                    public void onStopTrackingTouch(SeekBar seekBar) {}
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+                    }
                 });
 
         // Toggle the solar controls on and off by tapping the sun.

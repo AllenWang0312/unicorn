@@ -1,4 +1,4 @@
-package fingerprint.com.fingerprintrecognition;
+package edu.tjrac.swant.fingerprint;
 
 import android.content.Context;
 import android.content.Intent;

@@ -68,6 +68,7 @@ public class GalleryAlbumActivity extends BaseBarActivity {
             @Override
             public void onPageSelected(int position) {
                 tvPosition.setText("(" + (position + 1) + "/" + list.size() + ")"
+                        +"\n"
                         + list.get(position));
             }
 
@@ -99,6 +100,8 @@ public class GalleryAlbumActivity extends BaseBarActivity {
                                if(delete.exists()){
                                   boolean success= delete.delete();
                                   if(success){
+
+
                                       T.show(GalleryAlbumActivity.this,"文件删除成功");
 
                                   }else{
@@ -114,7 +117,7 @@ public class GalleryAlbumActivity extends BaseBarActivity {
 
             }
         });
-//        setToolbarBackgroud(R.color.translate);
+        setToolbarBackgroud(getResources().getColor(R.color.translate));
     }
 
     public static void start(Context context, String dirPath, int position) {

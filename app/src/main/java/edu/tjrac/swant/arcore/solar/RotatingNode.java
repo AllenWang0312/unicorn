@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.tjrac.swant.arcore;
+package edu.tjrac.swant.arcore.solar;
 
 import android.animation.ObjectAnimator;
 import android.os.Build;

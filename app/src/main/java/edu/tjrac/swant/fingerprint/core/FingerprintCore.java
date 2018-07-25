@@ -1,4 +1,4 @@
-package fingerprint.com.fingerprintrecognition.core;
+package edu.tjrac.swant.fingerprint.core;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -11,7 +11,8 @@ import android.util.Log;
 
 import java.lang.ref.WeakReference;
 
-import fingerprint.com.fingerprintrecognition.log.FPLog;
+import edu.tjrac.swant.fingerprint.log.FPLog;
+
 
 /**
  * Created by popfisher on 2016/11/7.
@@ -240,9 +241,9 @@ public class FingerprintCore {
     public static FingerprintManager getFingerprintManager(Context context) {
         FingerprintManager fingerprintManager = null;
         try {
-            fingerprintManager = (FingerprintManager)
+            fingerprintManager = (FingerprintManager)context.getSystemService(Context.FINGERPRINT_SERVICE);
         } catch (Throwable e) {
-            FPLog.log("have not class FingerprintManager");
+//            FPLog.log("have not class FingerprintManager");
         }
         return fingerprintManager;
     }

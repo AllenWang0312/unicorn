@@ -87,7 +87,7 @@ public class Camera2Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_augmented_image);
 
         mCameraManager = (CameraManager) getSystemService(CAMERA_SERVICE);
         mTextureView = (TextureView) findViewById(R.id.camera_texture_view);

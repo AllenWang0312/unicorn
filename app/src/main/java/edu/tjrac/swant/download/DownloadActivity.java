@@ -2,13 +2,18 @@ package edu.tjrac.swant.download;
 
 import android.annotation.SuppressLint;
 import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.annotation.RequiresApi;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -26,9 +31,11 @@ import butterknife.ButterKnife;
 import edu.tjrac.swant.download.bean.DownloadFileInfo;
 import edu.tjrac.swant.unicorn.R;
 
+
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class DownloadActivity extends BaseToolbarActivity {
 
-    int NOTIFICATION_ID = 100;
+    int NOTIFICATION_ID = 1;
 
     @BindView(R.id.toolbar) Toolbar mToolbar;
 
@@ -43,7 +50,7 @@ public class DownloadActivity extends BaseToolbarActivity {
 
         @Override
         public void onThreadSuccess(String tag, DownloadFileInfo info) {
-
+            L.i("threadId:" + tag, info.getUrl() + "_" + info.getDownloadSize());
         }
 
         @Override
@@ -104,9 +111,11 @@ public class DownloadActivity extends BaseToolbarActivity {
                 public void onClick(DialogInterface d, int which) {
                     String url = dialog.getEditText().getText().toString().trim();
                     String name = FileUtils.getName(url);
-                    Intent intent = new Intent(DownloadActivity.this, DownLoadService.class)
-                            .putExtra("downloadInfo",
-                                    new DownloadFileInfo(name, url));
+//                    Intent intent = new Intent(DownloadActivity.this, DownLoadService.class)
+//                            .putExtra("downloadInfo",
+//                                    new DownloadFileInfo(name, url));
+                    binder.addThread(new DownloadFileInfo(name,url));
+//                    sendBroadcast(intent);
 //                    bindService(intent,mConnection, BIND_AUTO_CREATE);
                     if (download == null) {
 
@@ -121,12 +130,32 @@ public class DownloadActivity extends BaseToolbarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    String CHANNEL_ONE_ID = "edu.tjrac.swant";
+    String CHANNEL_ONE_NAME = "unicorn download";
+
     private Notification getNotification() {
+
+        NotificationChannel notificationChannel = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            notificationChannel = new NotificationChannel(CHANNEL_ONE_ID,
+                    CHANNEL_ONE_NAME, NotificationManager.IMPORTANCE_HIGH);
+            notificationChannel.enableLights(true);
+            notificationChannel.setLightColor(Color.RED);
+            notificationChannel.setShowBadge(true);
+            notificationChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+            NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            manager.createNotificationChannel(notificationChannel);
+        }
+
+//        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+
         Notification.Builder mBuilder = new Notification.Builder(DownloadActivity.this);
+
+        mBuilder.setChannelId(CHANNEL_ONE_ID);
         mBuilder.setShowWhen(false);
         mBuilder.setAutoCancel(false);
         mBuilder.setSmallIcon(R.mipmap.ic_launcher_round);
-        mBuilder.setLargeIcon(((BitmapDrawable) getDrawable(R.mipmap.ic_launcher)).getBitmap());
+        mBuilder.setLargeIcon(((BitmapDrawable) getResources().getDrawable(R.mipmap.ic_launcher)).getBitmap());
         mBuilder.setContentText("this is content");
         mBuilder.setContentTitle("this is title");
         return mBuilder.build();

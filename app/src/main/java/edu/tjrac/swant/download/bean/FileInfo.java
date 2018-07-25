@@ -22,12 +22,13 @@ public class FileInfo implements Parcelable {
 
     String fileName;
     String url = "";
-    String savePath;
+    String savePath ;
     String absPath;
 
     public FileInfo(String fileName, String url) {
         this.fileName = fileName;
         this.url = url;
+        savePath=Config.getFileCacheDir();
     }
 
 
@@ -60,14 +61,9 @@ public class FileInfo implements Parcelable {
             if (!dir.exists()) {
                 dir.mkdirs();
             }
-            return savePath;
-        } else {
-            dir = new File(Config.fileCacheDir);
-            if (!dir.exists()) {
-                dir.mkdirs();
-            }
-            return Config.fileCacheDir;
+
         }
+        return savePath;
     }
 
     protected FileInfo(Parcel in) {
