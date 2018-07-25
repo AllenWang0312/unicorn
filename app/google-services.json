@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "349494237197",
+    "firebase_url": "https://unicorn-ad014.firebaseio.com",
+    "project_id": "unicorn-ad014",
+    "storage_bucket": "unicorn-ad014.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:349494237197:android:a31e56a5413853a1",
+        "android_client_info": {
+          "package_name": "edu.tjrac.swant.unicorn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "349494237197-740sc68s85nkn0up5611e9migjlo4l7o.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "349494237197-740sc68s85nkn0up5611e9migjlo4l7o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCV1mxIvTlJBJHmPCHd-ZkbjQHd20G49hU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

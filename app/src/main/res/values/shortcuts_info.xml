@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="compose_shortcut_disabled_a">快速入口不可用</string>
+
+    <string name="compose_shortcut_long_a">抖音</string>
+
+    <string name="compose_shortcut_short_a">抖音</string>
+</resources>
