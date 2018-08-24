@@ -2,14 +2,13 @@ package edu.tjrac.swant.filesystem.view;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.ClipboardManager;
 import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -76,45 +75,41 @@ import edu.tjrac.swant.unicorn.view.LottieViewerActivity;
 
 public class GalleryFragment extends BaseFragment implements View.OnClickListener {
 
+    @BindView(R.id.fab_sort) FloatingActionButton fab_sort;
+    @BindView(R.id.fab_content) FloatingActionButton fab_content;
+    @BindView(R.id.fab_left) FloatingActionButton fab_left;
+    @BindView(R.id.fab) FloatingActionButton fab;
+    @BindView(R.id.fab_add) FloatingActionButton fab_add;
+    @BindView(R.id.fab_more) FloatingActionButton fab_more;
+
+    //    @BindView(R.id.et_search) EditText et_search;
+//    @BindView(R.id.iv_search) ImageView iv_search;
+    @BindView(R.id.rv_paths) RecyclerView pathRecyc;
+    @BindView(R.id.rv_gallery_content) RecyclerView mRecyclerView;
+    @BindView(R.id.tv_clipfile_size) TextView tv_clipsize;
+    @BindView(R.id.swiper) SwipeRefreshLayout swiper;
+
+//    @BindView(R.id.drawer_layout) DrawerLayout drawer;
+//    @BindView(R.id.nav_view) NavigationView navigationView;
+
     private int[] types = {R.drawable.ic_view_headline_white_24dp,
             R.drawable.ic_view_list_white_24dp,
             R.drawable.ic_view_module_white_24dp
     };
 
-
     RecycItemFilter<File> filter;
-
-
-    @BindView(R.id.fab_left) FloatingActionButton fab_left;
-    @BindView(R.id.fab) FloatingActionButton fab;
-    @BindView(R.id.fab_add) FloatingActionButton fab_add;
-
-//    @BindView(R.id.et_search) EditText et_search;
-//    @BindView(R.id.iv_search) ImageView iv_search;
-
-    @BindView(R.id.rv_paths) RecyclerView pathRecyc;
-    @BindView(R.id.rv_gallery_content) RecyclerView mRecyclerView;
-
     GalleryContentAdapter adapter;
     //    ArrayList<GalleryContentAdapter.GalleryInfo> infos = new ArrayList<>();
     ArrayList<File> gallerys = new ArrayList<>();
-
-    @BindView(R.id.tv_clipfile_size) TextView tv_clipsize;
-
-    @BindView(R.id.swiper) SwipeRefreshLayout swiper;
-
     String quick_res;
     String rootptah;
     ArrayList<String> paths;
     private Unbinder mUnbinder;
 
-
     HashMap<String, Long> cut_paths = new HashMap<>();
     HashMap<String, Long> copy_paths = new HashMap<>();
-
     PopupWindow mPopupWindow;
     RecyclerView mPopRecycler;
-
     ClipBoardRecycAdapter clipAdapter;
 //    @BindView(R.id.adView)
 //     AdView mAdView;
@@ -129,7 +124,7 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
                     copy.setVisible(true);
                     delete.setVisible(true);
                     paste.setVisible(true);
-                    rename.setVisible(true);
+//                    rename.setVisible(true);
                     search.setVisible(false);
                 }
             });
@@ -144,7 +139,7 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
                     copy.setVisible(false);
                     delete.setVisible(false);
                     paste.setVisible(false);
-                    rename.setVisible(false);
+//                    rename.setVisible(false);
                     search.setVisible(true);
                 }
             });
@@ -156,13 +151,16 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         setHasOptionsMenu(true);
-
-
         rootptah = FileUtils.getSDcardPath();
         View view = inflater.inflate(R.layout.fragment_gallery, container, false);
-
-
         mUnbinder = ButterKnife.bind(this, view);
+
+//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+//                getActivity(), drawer, null, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+//        drawer.addDrawerListener(toggle);
+//        navigationView.setNavigationItemSelectedListener(this);
+//
+//        toggle.syncState();
 
 //        AdRequest adRequest = new AdRequest.Builder().build();
 //        mAdView.loadAd(adRequest);
@@ -190,13 +188,13 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
             }
         };
 
-        if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3, RecyclerView.HORIZONTAL, false));
-            Log.i("info", "landscape");
-        } else if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
-            Log.i("info", "portrait");
-        }
+//        if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+//            mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3, RecyclerView.HORIZONTAL, false));
+//            Log.i("info", "landscape");
+//        } else if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+//            Log.i("info", "portrait");
+//        }
         adapter.bindToRecyclerView(mRecyclerView);
         adapter.bindToPathRecyc(pathRecyc);
         adapter.setOnItemLongClickListener(new BaseQuickAdapter.OnItemLongClickListener() {
@@ -252,9 +250,13 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
 //       mRecyclerView.setLayoutManager(new );
         mRecyclerView.setAdapter(adapter);
         fab_left.setImageResource(types[2]);
+
+        fab_sort.setOnClickListener(this);
+        fab_content.setOnClickListener(this);
         fab_left.setOnClickListener(this);
         fab_add.setOnClickListener(this);
         fab.setOnClickListener(this);
+        fab_more.setOnClickListener(this);
 //        iv_search.setImeOptions(EditorInfo.IME_ACTION_SEND);
 //        et_search.setOnKeyListener(new View.OnKeyListener() {
 //            @Override
@@ -268,6 +270,7 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
 //            }
 //        });
         initGalleryInfos(MediaUtil.MediaType.image);
+        fab_content.setImageResource(R.drawable.ic_collections_white_24dp);
         super.onViewCreated(view, savedInstanceState);
 
     }
@@ -516,7 +519,9 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
         }
     };
     Menu menu;
-    MenuItem copy, cut, paste, delete, rename, search;
+    MenuItem copy, cut, paste, delete,
+    //            rename,
+    search;
 
     SearchView searchview;
 
@@ -528,7 +533,7 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
         cut = menu.findItem(R.id.cut);
         paste = menu.findItem(R.id.paste);
         delete = menu.findItem(R.id.delete);
-        rename = menu.findItem(R.id.rename_files);
+//        rename = menu.findItem(R.id.rename_files);
         search = menu.findItem(R.id.search);
         searchview = (SearchView) search.getActionView();
         searchview.setImeOptions(EditorInfo.IME_ACTION_NEXT);
@@ -547,7 +552,6 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
             }
         });
         searchview.setOnKeyListener(new View.OnKeyListener() {
-            @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (event.getAction() == KeyEvent.ACTION_DOWN) {
                     filter.skipToNext();
@@ -563,34 +567,34 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
         HashMap<String, Long> paths = adapter.getSelectedFilesPath();
 
         switch (item.getItemId()) {
-            case R.id.sort:
-                String[] sortType = getActivity().getResources().getStringArray(R.array.sorttype);
-                String[] oradition = getActivity().getResources().getStringArray(R.array.sortoradition);
-
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                View view = LayoutInflater.from(getActivity()).inflate(R.layout.sort_mode, null);
-                builder.setTitle("选择排序方式");
-
-                RadioGroup left = view.findViewById(R.id.rb_left),
-                        right = view.findViewById(R.id.rb_right);
-                inflateItem(Config.SP.sortType, left, sortType);
-                inflateItem(Config.SP.sortOrdition, right, oradition);
-
-
-                builder.setView(view);
-                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        SharedPreferences sp = getActivity().getSharedPreferences(Config.SP.GallerySetting, Context.MODE_PRIVATE);
-
-                        adapter.sort(sp.getInt(Config.SP.sortType, 0),
-                                sp.getInt(Config.SP.sortType, 0));
-
-                    }
-                });
-                builder.create().show();
-                break;
+//            case R.id.sort:
+//                String[] sortType = getActivity().getResources().getStringArray(R.array.sorttype);
+//                String[] oradition = getActivity().getResources().getStringArray(R.array.sortoradition);
+//
+//
+//                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//                View view = LayoutInflater.from(getActivity()).inflate(R.layout.sort_mode, null);
+//                builder.setTitle("选择排序方式");
+//
+//                RadioGroup left = view.findViewById(R.id.rb_left),
+//                        right = view.findViewById(R.id.rb_right);
+//                inflateItem(Config.SP.sortType, left, sortType);
+//                inflateItem(Config.SP.sortOrdition, right, oradition);
+//
+//
+//                builder.setView(view);
+//                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        SharedPreferences sp = getActivity().getSharedPreferences(Config.SP.GallerySetting, Context.MODE_PRIVATE);
+//
+//                        adapter.sort(sp.getInt(Config.SP.sortType, 0),
+//                                sp.getInt(Config.SP.sortType, 0));
+//
+//                    }
+//                });
+//                builder.create().show();
+//                break;
             case R.id.cut:
                 cut_paths.putAll(paths);
                 adapter.unSelectAll();
@@ -617,20 +621,8 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
                     }
                 }
                 break;
-            case R.id.rename_files:
-                break;
-            case R.id.filesystem:
-                initGalleryInfos(MediaUtil.MediaType.file);
-                break;
-            case R.id.image:
-                initGalleryInfos(MediaUtil.MediaType.image);
-                break;
-            case R.id.video:
-                initGalleryInfos(MediaUtil.MediaType.video);
-                break;
-            case R.id.music:
-                initGalleryInfos(MediaUtil.MediaType.music);
-                break;
+//            case R.id.rename_files:
+//                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -681,7 +673,80 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.fab_sort:
+              UiUtils.showPopmenu(getActivity(), fab_sort, true,
+                        R.menu.gallery_content_sort_type, new PopupMenu.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
+                                switch (item.getItemId()) {
 
+                                }
+                                return true;
+                            }
+                        });
+                break;
+            case R.id.fab_content:
+                UiUtils.showPopmenu(getActivity(), fab_content, true,
+                        R.menu.gallery_content_type, new PopupMenu.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
+                                switch (item.getItemId()) {
+                                    case R.id.filesystem:
+                                        initGalleryInfos(MediaUtil.MediaType.file);
+                                        fab_content.setImageResource(R.drawable.ic_folder_shared_white_24dp);
+                                        break;
+                                    case R.id.image:
+                                        initGalleryInfos(MediaUtil.MediaType.image);
+                                        fab_content.setImageResource(R.drawable.ic_collections_white_24dp);
+                                        break;
+                                    case R.id.video:
+                                        initGalleryInfos(MediaUtil.MediaType.video);
+                                        fab_content.setImageResource(R.drawable.ic_video_library_white_24dp);
+                                        break;
+                                    case R.id.music:
+                                        initGalleryInfos(MediaUtil.MediaType.music);
+                                        fab_content.setImageResource(R.drawable.ic_library_music_white_24dp);
+                                        break;
+                                }
+                                return true;
+                            }
+                        });
+                break;
+            case R.id.fab_more:
+                UiUtils.showPopmenu(getActivity(), fab_more, false,
+                        R.menu.path_option, new PopupMenu.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
+                                switch (item.getItemId()) {
+                                    case R.id.clip:
+                                        if(StringUtils.isEmpty(adapter.getCurrentPath())){
+                                            T.show(getActivity(), "当前路径不可用");
+                                        }else {
+                                            ClipboardManager cm = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                                            cm.setText(adapter.getCurrentDirPath());
+                                            T.show(getActivity(), "已复制当前路径: \n " + adapter.getCurrentDirPath());
+                                        }
+
+                                        break;
+                                    case R.id.set_carry_path:
+                                        if(StringUtils.isEmpty(adapter.getCurrentPath())){
+                                            T.show(getActivity(), "当前路径不可用");
+                                        }else {
+
+                                            ClipboardManager cm = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                                            cm.setText(adapter.getCurrentDirPath());
+                                            T.show(getActivity(), "已复制当前路径: \n " + adapter.getCurrentDirPath());
+                                        }
+                                        break;
+                                    case R.id.reanme:
+
+                                        break;
+                                }
+                                return false;
+                            }
+                        });
+
+                break;
 
             case R.id.fab:
                 showPopView();

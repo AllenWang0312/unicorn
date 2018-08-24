@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class TreeItem<T extends TreeItem> {
 
-    boolean expand = true;
+   public  boolean expand = true;
     Integer lv;
     T parent;
     ArrayList<T> childs;

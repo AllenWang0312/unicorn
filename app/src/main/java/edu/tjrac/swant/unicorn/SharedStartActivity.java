@@ -10,8 +10,8 @@ import android.support.annotation.Nullable;
 
 import com.yckj.baselib.common.base.BaseBackNoticeActivity;
 
-import edu.tjrac.swant.douyin.module.main.DouYinActivity;
 import edu.tjrac.swant.bluetooth.view.BluetoothActivity;
+import edu.tjrac.swant.douyin.module.main.DouYinActivity;
 import edu.tjrac.swant.todo.view.ToDoMainActivity;
 import edu.tjrac.swant.unicorn.view.MainActivity;
 import edu.tjrac.swant.unicorn.view.ZhihuActivity;
@@ -62,6 +62,7 @@ public abstract class SharedStartActivity extends BaseBackNoticeActivity {
                                     case 4:
                                         mContext.startActivity(new Intent(mContext, ToDoMainActivity.class));
                                         break;
+
 //                                    case 4:
 //                                        mContext.startActivity(new Intent(mContext, KaiyanActivity.class));
 //                                        break;

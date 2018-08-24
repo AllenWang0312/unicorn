@@ -3,6 +3,7 @@ package edu.tjrac.swant.todo.adapter;
 import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -31,6 +32,8 @@ public class TodoListAdapter extends BaseQuickAdapter<Todo, BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder helper, Todo item) {
         TextView title = helper.getView(R.id.tv_title);
+        CheckBox explan=helper.getView(R.id.cb_explan);
+            explan.setChecked(item.expand);
         if (item.isFinished()) {
             title.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         } else {

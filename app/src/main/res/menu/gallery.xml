@@ -14,12 +14,12 @@
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="always"
         ></item>
-    <item android:id="@+id/sort"
-          android:icon="@drawable/ic_import_export_white_24dp"
-          android:title="排序"
-          app:showAsAction="always"
+    <!--<item android:id="@+id/sort"-->
+          <!--android:icon="@drawable/ic_import_export_white_24dp"-->
+          <!--android:title="排序"-->
+          <!--app:showAsAction="always"-->
 
-        ></item>
+        <!--&gt;</item>-->
     <item
         android:id="@+id/cut"
         android:icon="@drawable/ic_content_cut_white_24dp"
@@ -49,47 +49,25 @@
         app:showAsAction="always"
         />
 
+    <!--<item-->
+        <!--android:id="@+id/rename_files"-->
+        <!--android:title="@string/rename_files"-->
+        <!--android:icon="@drawable/ic_delete_white_24dp"-->
+        <!--&gt;-->
 
-    <group>
-        <!--<item android:id="@+id/new_dir"-->
-        <!--android:title="@string/create_new_dir">-->
+    <!--</item>-->
+    <!--<group>-->
+        <!--&lt;!&ndash;<item android:id="@+id/new_dir"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:title="@string/create_new_dir">&ndash;&gt;-->
 
-        <!--</item>-->
-        <!--<item android:id="@+id/new_file"-->
-        <!--android:title="@string/create_new_file">-->
+        <!--&lt;!&ndash;</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item android:id="@+id/new_file"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:title="@string/create_new_file">&ndash;&gt;-->
 
-        <!--</item>-->
-        <item
-            android:id="@+id/rename_files"
-            android:title="@string/rename_files">
+        <!--&lt;!&ndash;</item>&ndash;&gt;-->
+     <!---->
+    <!--</group>-->
 
-        </item>
-    </group>
 
-    <group>
-        <item
-            android:id="@+id/filesystem"
-            android:title="@string/action_filesystem"
-            app:showAsAction="never"
-            />
-        <item
-            android:id="@+id/image"
-            android:title="@string/action_image"
-            app:showAsAction="never"
-            />
-
-        <item
-            android:id="@+id/video"
-            android:title="@string/action_video"
-            app:showAsAction="never"
-            />
-
-        <item
-            android:id="@+id/music"
-            android:title="@string/action_music"
-            app:showAsAction="never"
-            />
-
-    </group>
 
 </menu>

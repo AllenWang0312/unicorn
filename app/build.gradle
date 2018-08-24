@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 //apply plugin: 'android-apt'
 apply plugin: 'realm-android'
+apply plugin: 'com.apollographql.android'
 
 //apply plugin: 'com.google.gms.google-services'
 
@@ -9,6 +10,9 @@ apply plugin: 'realm-android'
 //apply plugin:'com.android.databinding'
 //apply plugin: 'me.tatarka.retrolambda'
 
+apply plugin: 'com.google.ar.sceneform.plugin'
+
+
 def releaseTime() {
     return new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC"))
 }
@@ -16,7 +20,7 @@ def releaseTime() {
 android {
 
 //    compileSdkVersion 27
-//    buildToolsVersion "27.0.3"
+//    buildToolsVersion "27.0.2"
 
 
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -56,6 +60,7 @@ android {
     lintOptions {
         checkReleaseBuilds false
         abortOnError false
+//        disable 'MissingTranslation'
     }
     defaultConfig {
 
@@ -64,6 +69,7 @@ android {
         applicationId "edu.tjrac.swant.unicorn"
         minSdkVersion 19
         targetSdkVersion 27
+
         versionCode 1
         versionName "1.0"
         flavorDimensions "1.0.0"
@@ -107,10 +113,10 @@ android {
     }
     signingConfigs {
         debug {
-            storeFile file(RELEASE_STORE_FILE)
-            storePassword RELEASE_STORE_PASSWORD
-            keyAlias RELEASE_KEY_ALIAS
-            keyPassword RELEASE_KEY_PASSWORD
+//            storeFile file(RELEASE_STORE_FILE)
+//            storePassword RELEASE_STORE_PASSWORD
+//            keyAlias RELEASE_KEY_ALIAS
+//            keyPassword RELEASE_KEY_PASSWORD
         }
 //        preview {
 //            storeFile file(RELEASE_STORE_FILE)
@@ -133,7 +139,7 @@ android {
             applicationIdSuffix ".debug"
             minifyEnabled false
 //            signingConfig signingConfigs.debug
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         release {
             minifyEnabled true
@@ -177,31 +183,34 @@ android {
 dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     compile fileTree(include: ['*.jar'], dir: 'libs')
-//    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-//        exclude group: 'com.android.support', module: 'support-annotations'
-//    })
-//    testCompile 'junit:junit:4.12'
 
+    //    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+
+    //        exclude group: 'com.android.support', module: 'support-annotations'
+
+    //    })
+
+    //    testCompile 'junit:junit:4.12'
     compile 'com.google.android:flexbox:0.2.7'
 
-
-    compile 'com.google.firebase:firebase-core:11.0.4'
-    implementation 'com.google.firebase:firebase-ads:11.0.4'
-
     // Obj - a simple Wavefront OBJ file loader
+
     // https://github.com/javagl/Obj
 
     // dependency for save-state
-//    classpath "io.github.prototypez:save-state:${latest_version}"
 
+    //    classpath "io.github.prototypez:save-state:${latest_version}"
     implementation 'de.javagl:obj:0.2.1'
+    compile 'com.google.firebase:firebase-core:11.0.4'
+    implementation 'com.google.firebase:firebase-ads:11.0.4'
     implementation 'com.google.firebase:firebase-database:11.0.4'
     implementation 'com.google.guava:guava:24.1-android'
+
     //arcore
+
     implementation "com.google.ar.sceneform:core:1.0.0"
+
     implementation "com.google.ar.sceneform.ux:sceneform-ux:1.0.0"
-
-
 
     compile 'com.airbnb.android:lottie:2.5.4'
 
@@ -221,13 +230,11 @@ dependencies {
     //    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3'
 
     //    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3'
-//    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.1.9'
+
+    //    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.1.9'
     compile 'com.koushikdutta.async:androidasync:2.2.1'
 
-
-    compile project(path: ':yckjbaselib')
-
-//    compile 'edu.tjrac.swant:yckjbaselib:1.0'
+    //    compile 'edu.tjrac.swant:yckjbaselib:1.0'
 
     ////    # required, enough for most devices.
 
@@ -306,10 +313,9 @@ dependencies {
     // ReactiveStreams support for LiveData
 
     //    implementation "android.arch.lifecycle:reactivestreams:1.1.0"
+    compile project(':yckjbaselib')
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }
-
-apply plugin: 'com.google.ar.sceneform.plugin'
-
 
 //sceneform.asset('sampledata/models/Earth/Earth.gltf',
 //        'default',

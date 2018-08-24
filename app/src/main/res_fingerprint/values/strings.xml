@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FingerprintRecognition</string>
+    <!--<string name="app_name">FingerprintRecognition</string>-->
     <string name="fingerprint_recognition_start">开始指纹识别</string>
     <string name="fingerprint_recognition_cancel">取消指纹识别</string>
     <string name="fingerprint_recognition_guide_tip">点击“开始指纹识别”按钮</string>

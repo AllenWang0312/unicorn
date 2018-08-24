@@ -35,6 +35,7 @@ public class GalleryContentAdapter extends BaseQuickAdapter<File, BaseViewHolder
     private GalleryContentAdapter instance;
     public boolean showCheckBox = false;
     //    Set<Integer> checkedItemIndex = new HashSet<>();
+    File dir;
 
     HashMap<String, Long> checkedItemIndex = new HashMap<>();
 
@@ -67,6 +68,20 @@ public class GalleryContentAdapter extends BaseQuickAdapter<File, BaseViewHolder
         this.copy_paths = copy_paths;
     }
 
+    public File getCurrentDir() {
+        if (dir != null) {
+            return dir;
+        }
+        return mData.get(0).getParentFile();
+    }
+
+    public String getCurrentDirPath() {
+        if (dir != null) {
+            return dir.getAbsolutePath();
+        }
+        return mData.get(0).getParent();
+    }
+
     public void setDatas(String rootName, Object object) {
         if (object instanceof File) {
             this.setDatas(rootName, (File) object);
@@ -76,12 +91,13 @@ public class GalleryContentAdapter extends BaseQuickAdapter<File, BaseViewHolder
     }
 
     public void setDatas(String rootName, File dirfile) {
+        dir = dirfile;
         this.setDatas(rootName, dirfile.listFiles());
     }
 
     public int remove(String path) {
-        for (int i = 0; i <paths.size() ; i++) {
-            if(path.equals(paths.get(i))){
+        for (int i = 0; i < paths.size(); i++) {
+            if (path.equals(paths.get(i))) {
                 paths.remove(path);
                 return i;
             }
@@ -99,6 +115,7 @@ public class GalleryContentAdapter extends BaseQuickAdapter<File, BaseViewHolder
 
     public void setDatas(@Nullable String rootName, @Nullable List<File> data) {
 //        this.rootName = rootName;
+        dir=null;
         mData = data;
 //        path_histroy.clear();
 //        path_histroy.push(data);
@@ -112,6 +129,8 @@ public class GalleryContentAdapter extends BaseQuickAdapter<File, BaseViewHolder
     }
 
     public void setDatas(String rootName, @Nullable String p) {
+
+        dir=null;
 
         path_histroy.clear();
         path_histroy.push(p);
@@ -263,7 +282,7 @@ public class GalleryContentAdapter extends BaseQuickAdapter<File, BaseViewHolder
     public LinkedList<Object> path_histroy = new LinkedList<>();
 
     public boolean back() {
-        showCheckBox=false;
+        showCheckBox = false;
         checkedItemIndex.clear();
 
         if (path_histroy != null && path_histroy.size() > 0) {
@@ -316,40 +335,45 @@ public class GalleryContentAdapter extends BaseQuickAdapter<File, BaseViewHolder
     }
 
 
-    public void setFailter(String failter,int failterMode) {
+    public void setFailter(String failter, int failterMode) {
         mFailter = failter;
-        this.failterMode=failterMode;
+        this.failterMode = failterMode;
         notifyDataSetChanged();
 
     }
 
     //
-    int sortType,sortOrdition;
+    int sortType, sortOrdition;
 
     @TargetApi(Build.VERSION_CODES.N)
     public void sort(int sortType, int sortOrdition) {
-        this.sortType=sortType;
-        this.sortOrdition=sortOrdition;
+        this.sortType = sortType;
+        this.sortOrdition = sortOrdition;
         getData().sort(new Comparator<File>() {
             @Override
             public int compare(File o1, File o2) {
-                if(sortType==0){
+                if (sortType == 0) {
 //                    return o1.getName()-o2.getName();
                     return 1;
-                }else if(sortType==1){
+                } else if (sortType == 1) {
 
                     return -1;
-                }else {
-                    if(sortOrdition==0){
-                        return  o1.lastModified()>o2.lastModified()? -1:1;
-                    }else {
-                        return  o1.lastModified()>o2.lastModified()? 1:-1;
+                } else {
+                    if (sortOrdition == 0) {
+                        return o1.lastModified() > o2.lastModified() ? -1 : 1;
+                    } else {
+                        return o1.lastModified() > o2.lastModified() ? 1 : -1;
                     }
 
                 }
 
             }
         });
+    }
+
+    public boolean hasDirPath() {
+        return false;
+
     }
 
 

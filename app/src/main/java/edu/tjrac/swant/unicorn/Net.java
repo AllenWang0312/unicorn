@@ -1,6 +1,8 @@
 package edu.tjrac.swant.unicorn;
 
 
+import com.apollographql.apollo.ApolloClient;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -32,6 +34,7 @@ import static edu.tjrac.swant.unicorn.Config.LOG;
 public class Net {
     private final static Object mRetrofitLock = new Object();
     private static volatile OkHttpClient sOkHttpClient;
+    //    private static volatile OkHttpClient
     private static Net instance;
     private static ZhiHuApi zhihuapi;
     private static DoubanApi doubanapi;
@@ -182,11 +185,20 @@ public class Net {
         return kaiyanapi;
     }
 
-   static JDApi jdapi;
+    static JDApi jdapi;
+
     public JDApi getJDApi() {
         if (jdapi == null) {
             jdapi = getRetrofit(JDApi.URL).create(JDApi.class);
         }
         return jdapi;
+    }
+
+    public static void initGraphQL() {
+      ApolloClient apllo=  ApolloClient.builder()
+                .serverUrl("localhost:8080")
+                .okHttpClient(sOkHttpClient)
+//                    .normalizedCache()
+                .build();
     }
 }

@@ -65,6 +65,7 @@ import edu.tjrac.swant.todo.view.ToDoMainActivity;
 import edu.tjrac.swant.trafficmonitor.NetDataWatcherActivity;
 import edu.tjrac.swant.unicorn.AlipayZeroSdk;
 import edu.tjrac.swant.unicorn.App;
+import edu.tjrac.swant.unicorn.Net;
 import edu.tjrac.swant.unicorn.R;
 import edu.tjrac.swant.unicorn.SharedStartActivity;
 import edu.tjrac.swant.unicorn.bean.User;
@@ -105,53 +106,7 @@ public class MainActivity extends SharedStartActivity
     protected void onResume() {
         super.onResume();
 
-        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-        String text = "";
-        try {
-            if (clipboard != null && clipboard.hasText()) {
-
-                CharSequence tmpText = clipboard.getText();
-                if (tmpText != null && tmpText.length() > 0) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                    builder.setTitle("clipboard input:" + tmpText.toString());
-                    text = tmpText.toString().trim();
-
-                    if (StringUtils.isMobileNO(text)) {
-                        builder.setItems(new String[]{"call", "新建联系人", "添加到联系人信息"}, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                if (which == 0) {
-                                    startActivity(IntentUtil.getCallPhoneIntent(tmpText.toString()));
-                                } else if (which == 1) {
-
-                                } else if (which == 2) {
-
-                                }
-                            }
-                        });
-                    } else if (StringUtils.isEmail(text)) {
-                        builder.setItems(new String[]{"新建联系人", "添加到联系人信息"}, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        });
-                    } else {
-                        new ClipboardInfoDialog(clipboard.getText().toString()).show(getFragmentManager(), "clipinfo");
-                    }
-
-
-// 创建一个剪贴数据集，包含一个普通文本数据条目（需要复制的数据）
-                    ClipData clipData = ClipData.newPlainText(null, "");
-
-// 把数据集设置（复制）到剪贴板
-                    clipboard.setPrimaryClip(clipData);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-//            text = "";
-        }
+        verificticonClipBoard();
 
         if (App.loged == null) {
 //            RoomDatabase database = Room.databaseBuilder(getApplicationContext(),
@@ -169,6 +124,7 @@ public class MainActivity extends SharedStartActivity
 
         }
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -347,7 +303,68 @@ public class MainActivity extends SharedStartActivity
 //        MusicPlayerActivity.testStart(mContext);
 //        WebWorkSpaceActivity.debugStart(MainActivity.this);
 
+
+//        testGraphGL();
     }
+
+    private void testGraphGL() {
+
+        Net.initGraphQL();
+//        FeedQuery
+    }
+
+    private void verificticonClipBoard() {
+
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        String text = "";
+        try {
+            if (clipboard != null && clipboard.hasText()) {
+
+                CharSequence tmpText = clipboard.getText();
+                if (tmpText != null && tmpText.length() > 0) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                    builder.setTitle("clipboard input:" + tmpText.toString());
+                    text = tmpText.toString().trim();
+
+                    if (StringUtils.isMobileNO(text)) {
+                        builder.setItems(new String[]{"call", "新建联系人", "添加到联系人信息"}, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (which == 0) {
+                                    startActivity(IntentUtil.getCallPhoneIntent(tmpText.toString()));
+                                } else if (which == 1) {
+
+                                } else if (which == 2) {
+
+                                }
+                            }
+                        });
+                    } else if (StringUtils.isEmail(text)) {
+                        builder.setItems(new String[]{"新建联系人", "添加到联系人信息"}, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                    } else {
+                        new ClipboardInfoDialog(clipboard.getText().toString()).show(getFragmentManager(), "clipinfo");
+                    }
+
+
+// 创建一个剪贴数据集，包含一个普通文本数据条目（需要复制的数据）
+                    ClipData clipData = ClipData.newPlainText(null, "");
+
+// 把数据集设置（复制）到剪贴板
+                    clipboard.setPrimaryClip(clipData);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+//            text = "";
+        }
+    }
+
+
 
     @Override
     public void onBackPressed() {

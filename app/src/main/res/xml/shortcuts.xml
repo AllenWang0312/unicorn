@@ -1,20 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shortcuts xmlns:android="https://schemas.android.com/apk/res/android">
     <shortcut
+        android:shortcutid="douying"
         android:enabled="true"
-        android:icon="@drawbale/ic_add_white_24dp"
+        android:icon="@drawable/ic_add_white_24dp"
         android:shortcutdisabledmessage="@string/compose_shortcut_disabled_a"
-        android:shortcutid="a"
-        android:shortcutlonglabel="@string/compose_shortcut_long_a"
+        android:shortcutlonglabel="抖抖音"
         android:shortcutshortlabel="@string/compose_shortcut_short_a">
+
         <intent
-            android:action="android.intent.action.VIEW"
+            android:action="edu.tjrac.swant.action.DOUYIN"
+            android:targetpackage="edu.tjrac.swant"
             android:targetclass="edu.tjrac.swant.douyin.module.main.DouYinActivity"
-            android:targetpackage="edu.tjrac.swant.unicorn">
-            <!--<categories android:name="android.shortcut.conversation">-->
-            <!--</categories>-->
+            >
+            <categories android:name="android.shortcut.conversation">
+            </categories>
         </intent>
     </shortcut>
 
+    <!--<shortcut-->
+        <!--android:enabled="true"-->
+        <!--android:icon="@drawable/ic_add_white_24dp"-->
+        <!--android:shortcutDisabledMessage="bluetooth shortcuts unable"-->
+        <!--android:shortcutId="b"-->
+        <!--android:shortcutLongLabel="bluetooth"-->
+        <!--android:shortcutShortLabel="bluetooth">-->
+        <!--<intent-->
+            <!--android:action="android.intent.action.VIEW"-->
+            <!--android:targetClass="edu.tjrac.swant.unicorn.view.MainActivity"-->
+            <!--android:targetPackage="edu.tjrac.swant"-->
+            <!--/>-->
+        <!--<intent-->
+            <!--android:action="android.intent.action.VIEW"-->
+            <!--android:targetClass="edu.tjrac.swant.bluetooth.view.BluetoothActivity"-->
+            <!--android:targetPackage="edu.tjrac.swant"/>-->
+    <!--</shortcut>-->
 
 </shortcuts>
