@@ -44,7 +44,7 @@ public class LeaderboardActivity extends BaseMVPActivity<LeaderBoardPresenter> i
         setContentView(R.layout.activity_leaderboard);
         ButterKnife.bind(this);
 
-        presenter = new LeaderBoardPresenter(this);
+        setPresenter(new LeaderBoardPresenter(this));
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
@@ -66,7 +66,7 @@ public class LeaderboardActivity extends BaseMVPActivity<LeaderBoardPresenter> i
             adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
                 @Override
                 public void onLoadMoreRequested() {
-                    presenter.getTop250Data(movies.size(), pageSize);
+                    getPresenter().getTop250Data(movies.size(), pageSize);
                 }
             });
         } else {
@@ -75,9 +75,9 @@ public class LeaderboardActivity extends BaseMVPActivity<LeaderBoardPresenter> i
 
         mRecycler.setAdapter(adapter);
         if (tag.equals("top250")) {
-            presenter.getTop250Data(movies.size(), pageSize);
+            getPresenter().getTop250Data(movies.size(), pageSize);
         } else {
-            presenter.getUSBoxData();
+            getPresenter().getUSBoxData();
         }
 
         mSwiper.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -85,10 +85,10 @@ public class LeaderboardActivity extends BaseMVPActivity<LeaderBoardPresenter> i
             public void onRefresh() {
                 if (tag.equals("top250")) {
                     movies.clear();
-                    presenter.getTop250Data(movies.size(), pageSize);
+                    getPresenter().getTop250Data(movies.size(), pageSize);
                 } else {
                     movies.clear();
-                    presenter.getUSBoxData();
+                    getPresenter().getUSBoxData();
                 }
 
             }

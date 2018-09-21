@@ -84,7 +84,7 @@ public class ThemeDetialActivity extends AppCompatActivity {
 
 
      void requestData(int id,int page){
-         Net.getInstance().getZhihuService().requestThemeData(id, page)
+         Net.Companion.getInstance().getZhihuService().requestThemeData(id, page)
                  .unsubscribeOn(Schedulers.io())
                  .subscribeOn(Schedulers.io())
                  .observeOn(AndroidSchedulers.mainThread())

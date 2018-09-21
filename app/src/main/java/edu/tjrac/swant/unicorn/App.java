@@ -5,6 +5,7 @@ import android.util.Log;
 import com.yckj.baselib.common.base.BaseApplication;
 
 import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
+import edu.tjrac.swant.filesystem.CarryPathDialogFragment;
 import edu.tjrac.swant.unicorn.bean.User;
 import edu.tjrac.swant.unicorn.view.MainActivity;
 
@@ -50,6 +51,7 @@ public class App extends BaseApplication {
 //            }
 //        });
 
+        CarryPathDialogFragment.initCarrySetting();
 
     }
 

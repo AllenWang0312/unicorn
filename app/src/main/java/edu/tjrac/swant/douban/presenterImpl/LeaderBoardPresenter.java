@@ -29,7 +29,7 @@ public class LeaderBoardPresenter extends RxPresenter implements LeaderBoardCont
 
     @Override
     public void getTop250Data(int start,int count) {
-        Subscription subscription = Net.getInstance().getDouBanService()
+        Subscription subscription = Net.Companion.getInstance().getDouBanService()
                 .getTop250(start,count)
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(Schedulers.io())
@@ -57,7 +57,7 @@ public class LeaderBoardPresenter extends RxPresenter implements LeaderBoardCont
 
     @Override
     public void getUSBoxData() {
-        Subscription subscription = Net.getInstance().getDouBanService()
+        Subscription subscription = Net.Companion.getInstance().getDouBanService()
                 .getUSTop()
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(Schedulers.io())

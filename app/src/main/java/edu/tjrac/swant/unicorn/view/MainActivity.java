@@ -108,7 +108,7 @@ public class MainActivity extends SharedStartActivity
 
         verificticonClipBoard();
 
-        if (App.loged == null) {
+        if (App.Companion.getLoged() == null) {
 //            RoomDatabase database = Room.databaseBuilder(getApplicationContext(),
 //                    RoomDatabase.class, "database_name")
 //                    .allowMainThreadQueries()
@@ -196,9 +196,9 @@ public class MainActivity extends SharedStartActivity
                     Location location = loc.init();
                     if (location != null) {
                         tv_location.setText(LocationUtils.formatLocation(location));
-                        App.loged.setLocation(location);
+                        App.Companion.getLoged().setLocation(location);
 
-                        NetRequire.requireJson("1003", App.loged, new Callback() {
+                        NetRequire.requireJson("1003", App.Companion.getLoged(), new Callback() {
                             @Override
                             public void onFailure(Call call, IOException e) {
 
@@ -286,7 +286,7 @@ public class MainActivity extends SharedStartActivity
         poartait.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (App.loged == null) {
+                if (App.Companion.getLoged() == null) {
 //                    startActivityForResult(new Intent(MainActivity.this, LoginActivity.class), ACTIVITY_REQUEST_LOGIN_IN);
 //                    startActivity(new Intent(MainActivity.this, RegisterActivity.class));
                 } else {
@@ -309,7 +309,7 @@ public class MainActivity extends SharedStartActivity
 
     private void testGraphGL() {
 
-        Net.initGraphQL();
+        Net.Companion.initGraphQL();
 //        FeedQuery
     }
 

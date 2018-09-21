@@ -81,7 +81,7 @@ public class StroyDetialActivity extends BaseActivity {
 //            Glide.with(StroyDetialActivity.this).load(title_image).into(mImageView);
 //        }
 
-        Net.getInstance()
+        Net.Companion.getInstance()
                 .getZhihuService()
                 .requestStroyDetial(id)
                 .unsubscribeOn(Schedulers.io())

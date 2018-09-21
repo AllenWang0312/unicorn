@@ -31,7 +31,7 @@ public class GankPresenter extends RxPresenter implements GankContract.Presenter
 
     @Override
     public void getCategoryList(String tag, int count, int page) {
-        Subscription subscription= Net.getInstance().getGankService()
+        Subscription subscription= Net.Companion.getInstance().getGankService()
                 .getCategoryList(tag, count, page)
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(Schedulers.io())

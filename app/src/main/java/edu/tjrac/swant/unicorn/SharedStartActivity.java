@@ -35,6 +35,7 @@ public abstract class SharedStartActivity extends BaseBackNoticeActivity {
 
     @Override
     public void onBackPressed() {
+
         if (show) {
             show = false;
             super.onBackPressed();

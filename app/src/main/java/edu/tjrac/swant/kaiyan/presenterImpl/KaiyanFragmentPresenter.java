@@ -29,7 +29,7 @@ public class KaiyanFragmentPresenter extends RxPresenter implements KaiyanFragme
 
     @Override
     public void getKaiyanHomeData() {
-        Subscription subscription = Net.getInstance().getKaiyanApi().getHomeBean()
+        Subscription subscription = Net.Companion.getInstance().getKaiyanApi().getHomeBean()
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

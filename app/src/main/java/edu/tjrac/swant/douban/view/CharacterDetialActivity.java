@@ -24,7 +24,7 @@ public class CharacterDetialActivity extends AppCompatActivity {
 
         info = getIntent().getParcelableExtra("info");
 
-        Net.getInstance().getDouBanService()
+        Net.Companion.getInstance().getDouBanService()
                 .getCelebrityInfo(info.getId())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(Schedulers.io())

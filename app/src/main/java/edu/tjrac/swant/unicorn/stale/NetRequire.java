@@ -32,7 +32,7 @@ public class NetRequire {
                 .build();
         Request request = new Request.Builder()
                 .post(body)
-                .url(UnicornApi.URL).
+                .url(UnicornApi.Companion.getURL()).
                         build();
         client.newCall(request).enqueue(callback);
     }
@@ -49,7 +49,7 @@ public class NetRequire {
         RequestBody requestBody = builder.build();
 
         Request request = new Request.Builder()
-                .url(UnicornApi.URL)
+                .url(UnicornApi.Companion.getURL())
                 .post(requestBody)
                 .build();
         Call call = mOkHttpClent.newCall(request);

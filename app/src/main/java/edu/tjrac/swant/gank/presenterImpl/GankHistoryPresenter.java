@@ -32,7 +32,7 @@ public class GankHistoryPresenter extends RxPresenter implements GankHistroyCont
 
     @Override
     public void getHistoryDateList() {
-        Subscription subscription = Net.getInstance().getGankService()
+        Subscription subscription = Net.Companion.getInstance().getGankService()
                 .getHistoryDateBean()
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(Schedulers.io())
@@ -66,7 +66,7 @@ public class GankHistoryPresenter extends RxPresenter implements GankHistroyCont
 
     @Override
     public void getHistoryDataBean(String date) {
-        Subscription subscription = Net.getInstance().getGankService()
+        Subscription subscription = Net.Companion.getInstance().getGankService()
                 .getHistroyDayBean(date)
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(Schedulers.io())

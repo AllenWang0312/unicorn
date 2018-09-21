@@ -23,7 +23,7 @@
 
         <RadioButton
             android:id="@+id/rb_home"
-            style="@style/cb_style_home"
+            style="@style/home_foot_bar_style"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -31,7 +31,7 @@
 
         <RadioButton
             android:id="@+id/rb_care"
-            style="@style/cb_style_home"
+            style="@style/home_foot_bar_style"
             android:layout_width="0dp"
 
             android:layout_height="match_parent"
@@ -46,7 +46,7 @@
 
         <RadioButton
             android:id="@+id/rb_notice"
-            style="@style/cb_style_home"
+            style="@style/home_foot_bar_style"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -54,7 +54,7 @@
 
         <RadioButton
             android:id="@+id/rb_mine"
-            style="@style/cb_style_home"
+            style="@style/home_foot_bar_style"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

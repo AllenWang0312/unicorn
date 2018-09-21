@@ -153,7 +153,7 @@ public class Net {
 
     public UnicornApi getUnicornApi() {
         if (unicornapi == null) {
-            unicornapi = getRetrofit(UnicornApi.URL).create(UnicornApi.class);
+            unicornapi = getRetrofit(UnicornApi.Companion.getURL()).create(UnicornApi.class);
         }
         return unicornapi;
     }

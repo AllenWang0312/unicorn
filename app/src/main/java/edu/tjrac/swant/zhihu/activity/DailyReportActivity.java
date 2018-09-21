@@ -47,7 +47,7 @@ adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListene
 
     }
 });
-        Net.getInstance().getZhihuService().requestDailyReportThemes()
+        Net.Companion.getInstance().getZhihuService().requestDailyReportThemes()
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

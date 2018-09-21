@@ -98,7 +98,7 @@ public class DoubanMovieDetialActivity extends BaseActivity {
                 BaseWebViewActivity.start(mContext,characters.get(position).getName(),"https:/movie.douban.com/celebrity/" + characters.get(position).getId() + "/mobile");
             }
         });
-        Net.getInstance().getDouBanService().getMovieDetialInfo(bean.getId())
+        Net.Companion.getInstance().getDouBanService().getMovieDetialInfo(bean.getId())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

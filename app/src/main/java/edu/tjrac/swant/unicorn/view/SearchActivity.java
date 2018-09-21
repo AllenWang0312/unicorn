@@ -54,7 +54,7 @@ public class SearchActivity extends BaseMVPActivity<SearchPresenter> implements 
         typeIndex = getIntent().getIntExtra("type", 0);
         setContentView(R.layout.activity_search);
         ButterKnife.bind(this);
-        presenter = new SearchPresenter(this);
+        setPresenter(new SearchPresenter(this));
 
 
         mEtSearch.setOnKeyListener(new View.OnKeyListener() {
@@ -82,9 +82,9 @@ public class SearchActivity extends BaseMVPActivity<SearchPresenter> implements 
             @Override
             public void onLoadMoreRequested() {
                 if (typeIndex == 0) {
-                    presenter.doSearchBook("", search, results.size(), count);
+                    getPresenter().doSearchBook("", search, results.size(), count);
                 } else if (typeIndex == 2) {
-                    presenter.doSearchMusic(search, page, count);
+                    getPresenter().doSearchMusic(search, page, count);
                 }
             }
         });
@@ -131,7 +131,7 @@ public class SearchActivity extends BaseMVPActivity<SearchPresenter> implements 
                 } else if (typeIndex == 2) {
                     adapter.setEnableLoadMore(true);
                     if (key == null) {
-                        presenter.getQQMusicKey("1007991483");
+                        getPresenter().getQQMusicKey("1007991483");
                     }
                 }
             }
@@ -157,11 +157,11 @@ public class SearchActivity extends BaseMVPActivity<SearchPresenter> implements 
         search = mEtSearch.getText().toString().trim();
         results.clear();
         if (typeIndex == 0) {
-            presenter.doSearchBook("", search, results.size(), count);
+            getPresenter().doSearchBook("", search, results.size(), count);
         } else if (typeIndex == 1) {
-            presenter.doSearchMovie("", search);
+            getPresenter().doSearchMovie("", search);
         } else if (typeIndex == 2) {
-            presenter.doSearchMusic(search, page, count);
+            getPresenter().doSearchMusic(search, page, count);
         }
     }
 

@@ -30,7 +30,7 @@ public class ZhihuDailyPresenter extends RxPresenter implements ZhihuDailyContra
 
     @Override
     public void loadDailyData() {
-        Subscription subscription = Net.getInstance()
+        Subscription subscription = Net.Companion.getInstance()
                 .getZhihuService()
                 .requestZhihuDaily()
                 .unsubscribeOn(Schedulers.io())
@@ -65,7 +65,7 @@ public class ZhihuDailyPresenter extends RxPresenter implements ZhihuDailyContra
 
     @Override
     public void loadBeforeData(String date) {
-        Subscription subscription = Net.getInstance()
+        Subscription subscription = Net.Companion.getInstance()
                 .getZhihuService()
                 .requestBeforeData(date)
                 .unsubscribeOn(Schedulers.io())

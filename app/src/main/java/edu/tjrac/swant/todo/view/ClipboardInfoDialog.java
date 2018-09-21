@@ -120,7 +120,7 @@ public class ClipboardInfoDialog extends DialogFragment implements View.OnClickL
             case R.id.tv_package:
                 secondView = LayoutInflater.from(getActivity()).inflate(edu.tjrac.swant.unicorn.R.layout.recyclerview, null);
 
-                Net.getInstance().getJDApi().searchPackage(clip_text, JDApi.key)
+                Net.Companion.getInstance().getJDApi().searchPackage(clip_text, JDApi.key)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new Subscriber<PackageSearchResult>() {

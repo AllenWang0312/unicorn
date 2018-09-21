@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <declare-styleable name="ViewPagerIndicater">
+        <attr name="indicater_radious" format="dimension"/>
+        <attr name="indicater_height" format="dimension"/>
+        <attr name="indicater_color" format="dimension"/>
+        <attr name="indicater_width" format="dimension"/>
+    </declare-styleable>
+</resources>

@@ -29,7 +29,7 @@ public class DoubanMoviePresenter extends RxPresenter implements DoubanMovieCont
 
     @Override
     public void getIsShowingMovies() {
-        Subscription subscription = Net.getInstance().getDouBanService()
+        Subscription subscription = Net.Companion.getInstance().getDouBanService()
                 .getIsShowingMovies()
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(Schedulers.io())
@@ -64,7 +64,7 @@ public class DoubanMoviePresenter extends RxPresenter implements DoubanMovieCont
 
     @Override
     public void getCommingMovies() {
-        Subscription subscription = Net.getInstance().getDouBanService()
+        Subscription subscription = Net.Companion.getInstance().getDouBanService()
                 .getCommingMovies()
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(Schedulers.io())

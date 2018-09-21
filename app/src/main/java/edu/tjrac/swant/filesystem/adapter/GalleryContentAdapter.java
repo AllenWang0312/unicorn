@@ -24,6 +24,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import edu.tjrac.swant.filesystem.FileSystemHelper;
+import edu.tjrac.swant.filesystem.MediaUtil;
 import edu.tjrac.swant.unicorn.R;
 
 /**
@@ -82,18 +83,8 @@ public class GalleryContentAdapter extends BaseQuickAdapter<File, BaseViewHolder
         return mData.get(0).getParent();
     }
 
-    public void setDatas(String rootName, Object object) {
-        if (object instanceof File) {
-            this.setDatas(rootName, (File) object);
-        } else if (object instanceof String) {
-            this.setDatas(rootName, (String) object);
-        }
-    }
 
-    public void setDatas(String rootName, File dirfile) {
-        dir = dirfile;
-        this.setDatas(rootName, dirfile.listFiles());
-    }
+
 
     public int remove(String path) {
         for (int i = 0; i < paths.size(); i++) {
@@ -103,6 +94,31 @@ public class GalleryContentAdapter extends BaseQuickAdapter<File, BaseViewHolder
             }
         }
         return -1;
+    }
+
+    public void setDatas(String rootName, Object object) {
+        if (object instanceof File) {
+            this.setDatas(rootName, (File) object);
+        } else if (object instanceof String) {
+            this.setDatas(rootName, (String) object);
+        }
+    }
+    //rootName 根节点描述//p 路径 多个用;间隔
+    public void setDatas(String rootName, @Nullable String p) {
+        dir = null;
+        mData = getFiles(p);
+        notifyDataSetChanged();
+        if (rootName != null) {
+            paths.clear();
+            paths.add(rootName);
+            pathRecycAdapter.notifyDataSetChanged();
+        }
+    }
+
+
+    public void setDatas(String rootName, File dirfile) {
+        dir = dirfile;
+        this.setDatas(rootName, dirfile.listFiles());
     }
 
     public void setDatas(@Nullable String rootName, @Nullable File[] data) {
@@ -115,35 +131,48 @@ public class GalleryContentAdapter extends BaseQuickAdapter<File, BaseViewHolder
 
     public void setDatas(@Nullable String rootName, @Nullable List<File> data) {
 //        this.rootName = rootName;
-        dir=null;
-        mData = data;
-//        path_histroy.clear();
-//        path_histroy.push(data);
-//        path_histroy.addFirst(getPaths(data));
-        notifyDataSetChanged();
-        if (rootName != null) {
+
+        mData =withFilter(data);
+        if(!StringUtils.isEmpty(rootName)){
+            if(paths!=null&&paths.size()>0){
+                if(!rootName.equals(paths.get(0))){
+                    dir=null;
+                }
+            }
+
             paths.clear();
             paths.add(rootName);
             pathRecycAdapter.notifyDataSetChanged();
+
         }
-    }
-
-    public void setDatas(String rootName, @Nullable String p) {
-
-        dir=null;
-
-        path_histroy.clear();
-        path_histroy.push(p);
-
-        mData = getFiles(p);
         notifyDataSetChanged();
         if (rootName != null) {
-            paths.clear();
-            paths.add(rootName);
             pathRecycAdapter.notifyDataSetChanged();
+//            if (paths != null && paths.size() > 0) {
+//                if (!rootName.equals(paths.get(0))) {
+//                    dir = null;
+//                }
+//            }
+        }
+    }
+
+    MediaUtil.MediaType media_type;
+
+    private List<File> withFilter(List<File> data) {
+        if(media_type== MediaUtil.MediaType.file){
+            return data;
+        }else {
+            ArrayList<File> result=new ArrayList<>();
+            for(File item:data){
+                if(MediaUtil.TypeEqual(media_type,item)){
+                    result.add(item);
+                }
+            }
+            return result;
         }
 
     }
+
 
     public String getPaths(List<File> data) {
         StringBuffer sb = new StringBuffer();
@@ -164,7 +193,9 @@ public class GalleryContentAdapter extends BaseQuickAdapter<File, BaseViewHolder
         mData.clear();
         File[] files = file.listFiles();
         for (File file1 : files) {
-            mData.add(file1);
+            if(MediaUtil.TypeEqual(media_type,file1)){
+                mData.add(file1);
+            }
         }
         paths.add(file.getName());
         pathRecycAdapter.notifyDataSetChanged();
@@ -196,6 +227,11 @@ public class GalleryContentAdapter extends BaseQuickAdapter<File, BaseViewHolder
 
     @Override
     protected void convert(BaseViewHolder helper, File item) {
+//        if(CarryPathDialogFragment.setting.toContain(item.getAbsolutePath())){
+//
+//        }else if(CarryPathDialogFragment.setting.fromContain(item.getAbsolutePath())){
+//
+//        }
         FileSystemHelper.loadFileIconToImageView(item, (ImageView) helper.getView(R.id.iv), mContext);
 //        if(type==1){
 //            UiUtils.loadFileIconToImageView(item,(ImageView) helper.getView(R.id.iv),mContext);
@@ -285,7 +321,7 @@ public class GalleryContentAdapter extends BaseQuickAdapter<File, BaseViewHolder
         showCheckBox = false;
         checkedItemIndex.clear();
 
-        if (path_histroy != null && path_histroy.size() > 0) {
+        if (path_histroy != null && path_histroy.size() > 1) {
             path_histroy.pop();
             setDatas(null, path_histroy.getFirst());
             paths.remove(paths.size() - 1);
@@ -374,6 +410,10 @@ public class GalleryContentAdapter extends BaseQuickAdapter<File, BaseViewHolder
     public boolean hasDirPath() {
         return false;
 
+    }
+
+    public void setMediaType(MediaUtil.MediaType mediaType) {
+        media_type = mediaType;
     }
 
 

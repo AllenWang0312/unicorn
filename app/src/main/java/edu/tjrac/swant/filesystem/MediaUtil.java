@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.yckj.baselib.util.FileUtils.extensionName;
+
 /**
  * Created by wpc on 2018/1/25 0025.
  */
@@ -54,8 +56,8 @@ public class MediaUtil {
      * Created by wpc on 2018/1/5.
      */
 
-    public static enum MediaType {
-        all, file, image, video, music
+    public enum MediaType {
+        all, file, image, music, video
     }
 
     public static List<String> getMediaDirs(Context context, MediaType type) {
@@ -154,5 +156,19 @@ public class MediaUtil {
         }
         return uris;
     }
+    public static boolean TypeEqual( MediaUtil.MediaType media_type, File item) {
+        String end = extensionName(item.getName());
+        switch (media_type.ordinal()){
+            case 1:
+                return true;
+            case 2:
+                return Config.support_image_type.contains(end.toLowerCase());
+            case 3:
+                return Config.support_music_type.contains(end.toLowerCase());
+            case 4:
+                return Config.support_video_type.contains(end.toLowerCase());
 
+        }
+        return false;
+    }
 }

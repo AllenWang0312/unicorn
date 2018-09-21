@@ -29,14 +29,10 @@ public class Config {
 
     public static String getFileCacheDir(){
         String fileCacheDir = FileUtils.getExtSDCardPath() +packageName+ "/download/";
-
         File file=new File(fileCacheDir);
-        if(file.exists()){
-
-        }else {
+        if(!file.exists()){
             file.mkdirs();
         }
-
         return fileCacheDir;
     }
 

@@ -9,15 +9,16 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -33,7 +34,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.CompoundButton;
-import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SearchView;
@@ -59,6 +59,7 @@ import java.util.Set;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import edu.tjrac.swant.filesystem.CarryPathDialogFragment;
 import edu.tjrac.swant.filesystem.MediaUtil;
 import edu.tjrac.swant.filesystem.RecycItemFilter;
 import edu.tjrac.swant.filesystem.adapter.ClipBoardRecycAdapter;
@@ -89,8 +90,10 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
     @BindView(R.id.tv_clipfile_size) TextView tv_clipsize;
     @BindView(R.id.swiper) SwipeRefreshLayout swiper;
 
-//    @BindView(R.id.drawer_layout) DrawerLayout drawer;
+    //    @BindView(R.id.drawer_layout) DrawerLayout drawer;
 //    @BindView(R.id.nav_view) NavigationView navigationView;
+    @BindView(R.id.ll_bottom) View ll_bottom;
+    private BottomSheetBehavior mBottomSheetBehavior;
 
     private int[] types = {R.drawable.ic_view_headline_white_24dp,
             R.drawable.ic_view_list_white_24dp,
@@ -108,11 +111,14 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
 
     HashMap<String, Long> cut_paths = new HashMap<>();
     HashMap<String, Long> copy_paths = new HashMap<>();
-    PopupWindow mPopupWindow;
-    RecyclerView mPopRecycler;
+    //    PopupWindow mPopupWindow;
+    @BindView(R.id.recycler) RecyclerView mPopRecycler;
+
     ClipBoardRecycAdapter clipAdapter;
 //    @BindView(R.id.adView)
 //     AdView mAdView;
+
+    SharedPreferences sp;
 
     private GalleryContentAdapter.HasItemSelectedCallback mItemSelectedCallback = new GalleryContentAdapter.HasItemSelectedCallback() {
         @Override
@@ -151,10 +157,30 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         setHasOptionsMenu(true);
+        sp = getActivity().getSharedPreferences(Config.SP.GallerySetting, Context.MODE_PRIVATE);
+
         rootptah = FileUtils.getSDcardPath();
         View view = inflater.inflate(R.layout.fragment_gallery, container, false);
         mUnbinder = ButterKnife.bind(this, view);
 
+        mBottomSheetBehavior = BottomSheetBehavior.from(ll_bottom);
+
+        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+
+        mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+                Log.i("slideOffset", String.valueOf(slideOffset));
+
+                ll_bottom.setBackgroundColor(((int) (0xff * slideOffset) << 24) + 0xffffff);
+
+            }
+        });
 //        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
 //                getActivity(), drawer, null, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 //        drawer.addDrawerListener(toggle);
@@ -249,6 +275,29 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
         adapter.setSelectedCallback(mItemSelectedCallback);
 //       mRecyclerView.setLayoutManager(new );
         mRecyclerView.setAdapter(adapter);
+
+
+        //剪切adapter
+        clipAdapter = new ClipBoardRecycAdapter(clipboardData);
+        mPopRecycler.setLayoutManager(new GridLayoutManager(getActivity(), 5));
+
+        clipAdapter.bindToRecyclerView(mPopRecycler);
+        clipAdapter.setEmptyView(R.layout.empty);
+//            mPopRecycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        clipAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter ad, View view, int position) {
+//                    clipboardData.remove(position);
+                clipAdapter.remove(position);
+                clipAdapter.notifyItemRemoved(position);
+                adapter.notifyDataSetChanged();
+                notifyClipBoardCountChanged();
+            }
+        });
+        clipAdapter.bindToPathsType(cut_paths, copy_paths);
+        mPopRecycler.setAdapter(clipAdapter);
+
+
         fab_left.setImageResource(types[2]);
 
         fab_sort.setOnClickListener(this);
@@ -384,41 +433,25 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
     }
 
     void showPopView() {
-        if (mPopupWindow == null) {
-
-            mPopRecycler = (RecyclerView) LayoutInflater.from(getActivity()).inflate(R.layout.recyclerview, null);
+        if (clipAdapter == null) {
+//            mPopRecycler = (RecyclerView) LayoutInflater.from(getActivity()).inflate(R.layout.recyclerview, null);
             getClipboardData();
-            View empty = LayoutInflater.from(getActivity()).inflate(R.layout.empty, null);
+//            View empty = LayoutInflater.from(getActivity()).inflate(R.layout.empty, null);
 
-            clipAdapter = new ClipBoardRecycAdapter(clipboardData);
-            clipAdapter.bindToRecyclerView(mPopRecycler);
-            clipAdapter.setEmptyView(empty);
-//            mPopRecycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-            mPopRecycler.setLayoutManager(new GridLayoutManager(getActivity(), 3));
-            clipAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(BaseQuickAdapter ad, View view, int position) {
-//                    clipboardData.remove(position);
-                    clipAdapter.remove(position);
-                    clipAdapter.notifyItemRemoved(position);
-                    adapter.notifyDataSetChanged();
-                    notifyClipBoardCountChanged();
-                }
-            });
-            clipAdapter.bindToPathsType(cut_paths, copy_paths);
-            mPopRecycler.setAdapter(clipAdapter);
-            mPopupWindow = new PopupWindow(mPopRecycler, 600, 400);
-//            mPopupWindow.setAnimationStyle(R.style.popup_window_anim);
-            mPopupWindow.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#F8F8F8")));
-            mPopupWindow.setFocusable(true);
-            mPopupWindow.setOutsideTouchable(true);
-            mPopupWindow.update();
+
+//            mPopupWindow = new PopupWindow(mPopRecycler, 600, 400);
+////            mPopupWindow.setAnimationStyle(R.style.popup_window_anim);
+//            mPopupWindow.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#F8F8F8")));
+//            mPopupWindow.setFocusable(true);
+//            mPopupWindow.setOutsideTouchable(true);
+//            mPopupWindow.update();
 
         } else {
             getClipboardData();
             clipAdapter.notifyDataSetChanged();
         }
-        mPopupWindow.showAsDropDown(fab);
+        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+//        mPopupWindow.showAsDropDown(fab);
     }
 
     ArrayList<String> clipboardData = new ArrayList<>();
@@ -455,6 +488,8 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
 
     private void initGalleryInfos(MediaUtil.MediaType type) {
         this.type = type;
+        adapter.setMediaType(type);
+
 //        infos.clear();
         String typeString = "";
         gallerys.clear();
@@ -599,6 +634,12 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
                 cut_paths.putAll(paths);
                 adapter.unSelectAll();
                 notifyClipBoardCountChanged();
+                if (mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+                    if(clipAdapter!=null){
+                        getClipboardData();
+                        clipAdapter.notifyDataSetChanged();
+                    }
+                }
                 break;
             case R.id.copy:
                 copy_paths.putAll(paths);
@@ -667,14 +708,18 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void onBack() {
-        backable = adapter.back();
+        if(mBottomSheetBehavior.getState()==BottomSheetBehavior.STATE_EXPANDED){
+            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        }else {
+            backable = adapter.back();
+        }
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fab_sort:
-              UiUtils.showPopmenu(getActivity(), fab_sort, true,
+                UiUtils.showPopmenu(getActivity(), fab_sort, true,
                         R.menu.gallery_content_sort_type, new PopupMenu.OnMenuItemClickListener() {
                             @Override
                             public boolean onMenuItemClick(MenuItem item) {
@@ -719,9 +764,9 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
                             public boolean onMenuItemClick(MenuItem item) {
                                 switch (item.getItemId()) {
                                     case R.id.clip:
-                                        if(StringUtils.isEmpty(adapter.getCurrentPath())){
+                                        if (StringUtils.isEmpty(adapter.getCurrentPath())) {
                                             T.show(getActivity(), "当前路径不可用");
-                                        }else {
+                                        } else {
                                             ClipboardManager cm = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
                                             cm.setText(adapter.getCurrentDirPath());
                                             T.show(getActivity(), "已复制当前路径: \n " + adapter.getCurrentDirPath());
@@ -729,13 +774,15 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
 
                                         break;
                                     case R.id.set_carry_path:
-                                        if(StringUtils.isEmpty(adapter.getCurrentPath())){
+                                        if (StringUtils.isEmpty(adapter.getCurrentPath())) {
                                             T.show(getActivity(), "当前路径不可用");
-                                        }else {
+                                        } else {
+                                            new CarryPathDialogFragment(adapter.getCurrentPath(), "")
+                                                    .show(getChildFragmentManager(), "carry_path");
 
-                                            ClipboardManager cm = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-                                            cm.setText(adapter.getCurrentDirPath());
-                                            T.show(getActivity(), "已复制当前路径: \n " + adapter.getCurrentDirPath());
+//                                            ClipboardManager cm = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+//                                            cm.setText(adapter.getCurrentDirPath());
+//                                            T.show(getActivity(), "已复制当前路径: \n " + adapter.getCurrentDirPath());
                                         }
                                         break;
                                     case R.id.reanme:
@@ -749,7 +796,12 @@ public class GalleryFragment extends BaseFragment implements View.OnClickListene
                 break;
 
             case R.id.fab:
-                showPopView();
+                //显示剪切板
+                if (mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
+                    showPopView();
+                } else {
+                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                }
                 break;
 
 

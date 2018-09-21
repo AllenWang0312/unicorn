@@ -31,7 +31,7 @@ public class SearchPresenter extends RxPresenter implements SearchActivityContra
 
     @Override
     public void doSearchMovie(String tag, String search) {
-        Subscription subscription = Net.getInstance().getDouBanService()
+        Subscription subscription = Net.Companion.getInstance().getDouBanService()
                 .searchMovie(search, tag)
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(Schedulers.io())
@@ -58,7 +58,7 @@ public class SearchPresenter extends RxPresenter implements SearchActivityContra
 
     @Override
     public void doSearchBook(String tag, String search, int start, int count) {
-        Subscription subscription = Net.getInstance().getDouBanService()
+        Subscription subscription = Net.Companion.getInstance().getDouBanService()
                 .searchBook(search, tag, start, count)
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(Schedulers.io())
@@ -84,7 +84,7 @@ public class SearchPresenter extends RxPresenter implements SearchActivityContra
 
     @Override
     public void doSearchMusic(String search, int page, int count) {
-        Subscription subscription = Net.getInstance().getQQmusicApi()
+        Subscription subscription = Net.Companion.getInstance().getQQmusicApi()
                 .searchMusic(0, count, 1, 1, 0, "json"
                         , "GB231", "utf-8", 0, "jqminiframe.json"
                         , 0, page, 0, "sizer.newclient.next_song"
@@ -112,7 +112,7 @@ public class SearchPresenter extends RxPresenter implements SearchActivityContra
 
     @Override
     public void getQQMusicKey(String qqid) {
-        Subscription subscription = Net.getInstance()
+        Subscription subscription = Net.Companion.getInstance()
                 .getQQmusicKeyApi()
                 .getQQmusicKey(3, qqid, "jsonp", "GB2312"
                         , "GB2312", 0, "yqq", 0)
