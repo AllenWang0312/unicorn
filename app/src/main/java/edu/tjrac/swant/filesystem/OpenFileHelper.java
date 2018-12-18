@@ -1,9 +1,16 @@
 package edu.tjrac.swant.filesystem;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 
 import java.io.File;
 import java.util.ArrayList;
+
+import edu.tjrac.swant.kotlin.baselib.util.FileUtils;
 
 /**
  * Created by wpc on 2017/2/11.
@@ -11,7 +18,22 @@ import java.util.ArrayList;
 
 public class OpenFileHelper {
 
+    public static void openFile(Context context, File file) {
+        Intent intent = new Intent();
+        intent.addFlags(268435456);
+        intent.setAction("android.intent.action.VIEW");
+        String type = FileUtils.getMIMEType(file);
+        if(Build.VERSION.SDK_INT >= 24) {
+            intent.setFlags(1);
+            Uri contentUri = FileProvider.getUriForFile(context, "edu.tjrac.swant.unicorn.fileProvider", file);
+            intent.setDataAndType(contentUri, type);
+        } else {
+            intent.setDataAndType(Uri.fromFile(file), type);
+            intent.setFlags(268435456);
+        }
 
+        context.startActivity(intent);
+    }
 
 //    @SuppressLint("NewApi")
 //    public static void showChoseFileToPlayDialog(String dirPath,

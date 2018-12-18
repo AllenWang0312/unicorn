@@ -173,7 +173,7 @@ public class MusicPlayService extends Service {
         if (file.exists()) {
             for (File file1 : file.getParentFile().listFiles()) {
                 String filename = file1.getName();
-                if (MusicPlayerActivity.res_type.contains(filename.substring(filename.lastIndexOf(".")))) {
+                if (MusicPlayerActivity.Companion.getRes_type().contains(filename.substring(filename.lastIndexOf(".")))) {
                     infos.add(new MusicInfo(file1.getAbsolutePath()));
                 }
             }
@@ -187,7 +187,7 @@ public class MusicPlayService extends Service {
         for (File item : childs) {
             String end = StringUtils.getEndString(item.getName());
             if (!StringUtils.isEmpty(end)) {
-                if (MusicPlayerActivity.res_type.contains(end)) {
+                if (MusicPlayerActivity.Companion.getRes_type().contains(end)) {
                     L.i("getPlayList", item.getAbsolutePath());
                     array.add(new MusicInfo(item.getAbsolutePath()));
                 }

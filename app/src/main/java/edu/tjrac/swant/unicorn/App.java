@@ -2,6 +2,7 @@ package edu.tjrac.swant.unicorn;
 
 import android.util.Log;
 
+import com.squareup.leakcanary.LeakCanary;
 import com.yckj.baselib.common.base.BaseApplication;
 
 import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
@@ -39,7 +40,7 @@ public class App extends BaseApplication {
         instance=this;
 //        Realm.init(this);
 
-//        LeakCanary.install(this);
+        LeakCanary.install(this);
 //        LocationUtils.getInstance(getApplicationContext()).showLocation();
 
 //        JPushInterface.setDebugMode(true);
@@ -51,7 +52,7 @@ public class App extends BaseApplication {
 //            }
 //        });
 
-        CarryPathDialogFragment.initCarrySetting();
+        CarryPathDialogFragment.Companion.initCarrySetting();
 
     }
 

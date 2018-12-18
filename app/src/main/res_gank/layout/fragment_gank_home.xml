@@ -11,7 +11,6 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:id="@+id/tab"
-        app:tabTextAppearance="@style/xhs_tab_appearance"
         android:layout_width="match_parent"
         android:layout_height="32dp"
         app:tabBackground="@color/white"
@@ -21,6 +20,7 @@
         app:tabMode="scrollable"
         app:tabSelectedTextColor="#919191"
         app:tabTextColor="#919191">
+        <!--app:tabTextAppearance="@style/xhs_tab_appearance"-->
 
     </android.support.design.widget.TabLayout>
 

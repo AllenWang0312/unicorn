@@ -1,7 +1,10 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 //apply plugin: 'android-apt'
-apply plugin: 'realm-android'
-apply plugin: 'com.apollographql.android'
+//apply plugin: 'realm-android'
+//apply plugin: 'com.apollographql.android'
 
 //apply plugin: 'com.google.gms.google-services'
 
@@ -51,9 +54,9 @@ android {
     }
 
 //    E:\work\personal.jks
-    dataBinding {
-        enabled = true
-    }
+//    dataBinding {
+//        enabled = true
+//    }
     packagingOptions {
         exclude 'META-INF/rxjava.properties'
     }
@@ -118,12 +121,12 @@ android {
 //            keyAlias RELEASE_KEY_ALIAS
 //            keyPassword RELEASE_KEY_PASSWORD
         }
-//        preview {
-//            storeFile file(RELEASE_STORE_FILE)
-//            storePassword RELEASE_STORE_PASSWORD
-//            keyAlias RELEASE_KEY_ALIAS
-//            keyPassword RELEASE_KEY_PASSWORD
-//        }
+        preview {
+            storeFile file(RELEASE_STORE_FILE)
+            storePassword RELEASE_STORE_PASSWORD
+            keyAlias RELEASE_KEY_ALIAS
+            keyPassword RELEASE_KEY_PASSWORD
+        }
         release {
             storeFile file(RELEASE_STORE_FILE)
             storePassword RELEASE_STORE_PASSWORD
@@ -138,8 +141,8 @@ android {
             manifestPlaceholders = [app_label: "@string/app_name_debug"]
             applicationIdSuffix ".debug"
             minifyEnabled false
-//            signingConfig signingConfigs.debug
-//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         release {
             minifyEnabled true
@@ -151,7 +154,7 @@ android {
             debuggable true // 保留debug信息
             minifyEnabled true
             shrinkResources true
-//            signingConfig signingConfigs.preview
+            signingConfig signingConfigs.preview
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -160,7 +163,7 @@ android {
     // add output file sub folder by build type
 
 
-    applicationVariants.all { variant ->
+//    applicationVariants.all { variant ->
 //        variant.outputs.each { output ->
 //            output.outputFile = new File(
 //                    output.outputFile.parent + "/${variant.buildType.name}",
@@ -169,10 +172,10 @@ android {
 ////                    output.outputFile.parent,"app_${defaultConfig.applicationId }_"+ buildType.name + "_v${defaultConfig.versionName}-${releaseTime()}.apk"
 //            )
 //        }
-        variant.outputs.all {
-            outputFileName = "unicorn_${variant.productFlavors[0].name}_v${variant.versionName}_${releaseTime()}.apk"
-        }
-    }
+//        variant.outputs.all {
+//            outputFileName = "unicorn_${variant.productFlavors[0].name}_v${variant.versionName}_${releaseTime()}.apk"
+//        }
+//    }
 
     compileOptions {
         targetCompatibility 1.8
@@ -207,11 +210,8 @@ dependencies {
     implementation 'com.google.guava:guava:24.1-android'
 
     //arcore
-
     implementation "com.google.ar.sceneform:core:1.0.0"
-
     implementation "com.google.ar.sceneform.ux:sceneform-ux:1.0.0"
-
     compile 'com.airbnb.android:lottie:2.5.4'
 
     //崩溃检测
@@ -220,16 +220,15 @@ dependencies {
     //CacheStrategy
 
     //    compile 'com.airbnb.android:lottie:1.0.1'
-    compile 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
+//    compile 'com.jakewharton:butterknife:8.8.1'
+//    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
     //    classpath"com.android.databinding:dataBinder:1.0-rc1"
 
     //    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
-
-    //    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3'
-
-    //    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3'
 
     //    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.1.9'
     compile 'com.koushikdutta.async:androidasync:2.2.1'
@@ -313,8 +312,26 @@ dependencies {
     // ReactiveStreams support for LiveData
 
     //    implementation "android.arch.lifecycle:reactivestreams:1.1.0"
-    compile project(':yckjbaselib')
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+
+    //    compile project(':yckjbaselib')
+//    compile project(':yckjbaselib')
+    compile project(':kbaselib')
+    compile 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
+    compile 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'
+
+//    compile 'tv.danmaku.ijk.media:ijkplayer-armv5:0.8.8'
+//    compile 'tv.danmaku.ijk.media:ijkplayer-arm64:0.8.8'
+//    compile 'tv.danmaku.ijk.media:ijkplayer-x86:0.8.8'
+//    compile 'tv.danmaku.ijk.media:ijkplayer-x86_64:0.8.8'
+//
+    compile 'tv.danmaku.ijk.media:ijkplayer-exo:0.8.8'
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+//    compile 'tv.danmaku.ijk.media:ijkplayer-java:0.6.2'
+
+}
+repositories {
+    mavenCentral()
 }
 
 //sceneform.asset('sampledata/models/Earth/Earth.gltf',
