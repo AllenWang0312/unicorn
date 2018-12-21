@@ -16,9 +16,9 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.ar.sceneform.plugin'
 
 
-def releaseTime() {
-    return new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC"))
-}
+//def releaseTime() {
+//    return new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC"))
+//}
 
 android {
 
@@ -27,7 +27,7 @@ android {
 
 
     compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    buildToolsVersion '28.0.2'
 
     sourceSets {
         main.res.srcDirs += 'src/main/res_fingerprint'
@@ -97,19 +97,19 @@ android {
 //        }
     }
     productFlavors {
-        dev {
-            manifestPlaceholders = [channel: "dev"]
-        }
-        official {
-            manifestPlaceholders = [channel: "official"]
-        }
-        // ... ...
-        wandoujia {
-            manifestPlaceholders = [channel: "wandoujia"]
-        }
-        xiaomi {
-            manifestPlaceholders = [channel: "xiaomi"]
-        }
+//        dev {
+//            manifestPlaceholders = [channel: "dev"]
+//        }
+//        official {
+//            manifestPlaceholders = [channel: "official"]
+//        }
+//        // ... ...
+//        wandoujia {
+//            manifestPlaceholders = [channel: "wandoujia"]
+//        }
+//        xiaomi {
+//            manifestPlaceholders = [channel: "xiaomi"]
+//        }
 //        "360" {
 //            manifestPlaceholders = [channel: "360"]
 //        }
@@ -148,20 +148,19 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-        preview {
-            manifestPlaceholders = [app_label: "@string/app_name_preview"]
-            applicationIdSuffix ".preview"
-            debuggable true // 保留debug信息
-            minifyEnabled true
-            shrinkResources true
-            signingConfig signingConfigs.preview
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
+//        preview {
+//            manifestPlaceholders = [app_label: "@string/app_name_preview"]
+//            applicationIdSuffix ".preview"
+//            debuggable true // 保留debug信息
+//            minifyEnabled true
+//            shrinkResources true
+//            signingConfig signingConfigs.preview
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//        }
     }
 
     // rename the apk with the version name
     // add output file sub folder by build type
-
 
 //    applicationVariants.all { variant ->
 //        variant.outputs.each { output ->
@@ -185,7 +184,7 @@ android {
 
 dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
 
     //    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
 
@@ -194,7 +193,7 @@ dependencies {
     //    })
 
     //    testCompile 'junit:junit:4.12'
-    compile 'com.google.android:flexbox:0.2.7'
+    implementation 'com.google.android:flexbox:0.2.7'
 
     // Obj - a simple Wavefront OBJ file loader
 
@@ -204,34 +203,37 @@ dependencies {
 
     //    classpath "io.github.prototypez:save-state:${latest_version}"
     implementation 'de.javagl:obj:0.2.1'
-    compile 'com.google.firebase:firebase-core:11.0.4'
+    implementation 'com.google.firebase:firebase-core:11.0.4'
     implementation 'com.google.firebase:firebase-ads:11.0.4'
     implementation 'com.google.firebase:firebase-database:11.0.4'
     implementation 'com.google.guava:guava:24.1-android'
 
     //arcore
-    implementation "com.google.ar.sceneform:core:1.0.0"
-    implementation "com.google.ar.sceneform.ux:sceneform-ux:1.0.0"
-    compile 'com.airbnb.android:lottie:2.5.4'
+    implementation 'com.google.ar.sceneform:core:1.0.0'
+    implementation 'com.google.ar.sceneform.ux:sceneform-ux:1.0.0'
+    implementation 'com.airbnb.android:lottie:2.5.4'
 
     //崩溃检测
-    compile 'cat.ereza:customactivityoncrash:1.5.0'
+    implementation 'cat.ereza:customactivityoncrash:1.5.0'
 
     //CacheStrategy
 
     //    compile 'com.airbnb.android:lottie:1.0.1'
 
-//    compile 'com.jakewharton:butterknife:8.8.1'
-//    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    //    compile 'com.jakewharton:butterknife:8.8.1'
+
+    //    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
     //    classpath"com.android.databinding:dataBinder:1.0-rc1"
 
     //    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3'
+
+    //    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3'
+
+    //    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3'
 
     //    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.1.9'
-    compile 'com.koushikdutta.async:androidasync:2.2.1'
+    implementation 'com.koushikdutta.async:androidasync:2.2.1'
 
     //    compile 'edu.tjrac.swant:yckjbaselib:1.0'
 
@@ -312,23 +314,35 @@ dependencies {
     // ReactiveStreams support for LiveData
 
     //    implementation "android.arch.lifecycle:reactivestreams:1.1.0"
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 
     //    compile project(':yckjbaselib')
-//    compile project(':yckjbaselib')
-    compile project(':kbaselib')
-    compile 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
-    compile 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'
 
-//    compile 'tv.danmaku.ijk.media:ijkplayer-armv5:0.8.8'
-//    compile 'tv.danmaku.ijk.media:ijkplayer-arm64:0.8.8'
-//    compile 'tv.danmaku.ijk.media:ijkplayer-x86:0.8.8'
-//    compile 'tv.danmaku.ijk.media:ijkplayer-x86_64:0.8.8'
-//
-    compile 'tv.danmaku.ijk.media:ijkplayer-exo:0.8.8'
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-//    compile 'tv.danmaku.ijk.media:ijkplayer-java:0.6.2'
+    //    compile project(':yckjbaselib')
 
+    //    compile 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
+
+    //    compile 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'
+
+    //    compile 'tv.danmaku.ijk.media:ijkplayer-exo:0.8.8'
+
+    //    compile 'tv.danmaku.ijk.media:ijkplayer-armv5:0.8.8'
+
+    //    compile 'tv.danmaku.ijk.media:ijkplayer-arm64:0.8.8'
+
+    //    compile 'tv.danmaku.ijk.media:ijkplayer-x86:0.8.8'
+
+    //    compile 'tv.danmaku.ijk.media:ijkplayer-x86_64:0.8.8'
+
+    //
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    //    compile 'tv.danmaku.ijk.media:ijkplayer-java:0.6.2'
+
+    //    compile project(':kbaselib')
+
+    //    compile project(':kbaselib')
+    implementation project(':kbaselib')
 }
 repositories {
     mavenCentral()

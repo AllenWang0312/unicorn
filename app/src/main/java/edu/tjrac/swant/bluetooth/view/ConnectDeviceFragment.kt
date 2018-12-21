@@ -10,7 +10,7 @@ import android.support.annotation.RequiresApi
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.yckj.baselib.common.base.BaseFragment
+import edu.tjrac.swant.kotlin.baselib.common.BaseFragment
 import edu.tjrac.swant.unicorn.R
 
 /**

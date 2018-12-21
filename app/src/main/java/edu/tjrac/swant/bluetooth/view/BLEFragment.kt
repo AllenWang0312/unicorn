@@ -14,11 +14,9 @@ import android.support.annotation.RequiresApi
 import android.util.Log
 import android.view.*
 import android.widget.TextView
-import com.yckj.baselib.common.base.BaseFragment
-import com.yckj.baselib.util.L
-import com.yckj.baselib.util.T
 import edu.tjrac.swant.bluetooth.BlueToothHelper
 import edu.tjrac.swant.bluetooth.adapter.BLEFragmentsPagerAdapter
+import edu.tjrac.swant.kotlin.baselib.common.BaseFragment
 import edu.tjrac.swant.unicorn.R
 import edu.tjrac.swant.unicorn.view.MainActivity.Companion.REQUEST_COARSE_LOCATION
 import kotlinx.android.synthetic.main.fragment_ble.*
@@ -47,7 +45,7 @@ class BLEFragment : BaseFragment() {
             val action = intent.action
             val device = intent.getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)
 
-            L.i("BLEFragment:onReceive", action)
+//            L.i("BLEFragment:onReceive", action)
             //            if (BluetoothLeService.ACTION_GATT_CONNECTED.equals(action)) {
             //                Log.i("onReceive", "ACTION_GATT_CONNECTED");
             //            }else
@@ -56,7 +54,7 @@ class BLEFragment : BaseFragment() {
                 connectedSockets.add(mBluetoothSocket!!)
                 connectedDevices.add(device)
 
-                L.i("RSSI:" + device.address, intent.extras.getShort(BluetoothDevice.EXTRA_RSSI).toString() + "")
+//                L.i("RSSI:" + device.address, intent.extras.getShort(BluetoothDevice.EXTRA_RSSI).toString() + "")
                 content_adapter!!.addFragment(ConnectDeviceFragment(this@BLEFragment,
                         found!!.found_devices[found!!.found_flags.indexOf(device.address)])
                 )
